@@ -55,11 +55,7 @@
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
               [(ngModel)]="protecaoAtual_Death" (ngModelChange)="calcular()">
           </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end text-danger">Dano Total</label>
-            <input class="col-4 control text-center text-danger" type="text" currencyMask disabled
-              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoAtual_Total">
-          </div>
+          <br/>
         </div>
       </div>
 
@@ -219,6 +215,7 @@
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
               [(ngModel)]="protecaoSugestao_Death" (ngModelChange)="calcular()">
           </div>
+          <br/>
         </div>
       </div>
 
