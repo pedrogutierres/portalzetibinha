@@ -177,7 +177,7 @@ export class AppComponent implements OnInit {
 
   extrairDano(line: string): number {
     try {
-      return +(line?.trim().split(" ")[1].replace(",", "").replace(".", "")) ?? 0;
+      return +(line?.trim().split(" ")[1].replace(/\,/gi, "").replace(/\./gi, "")) ?? 0;
     } catch (error) {
       return 0;
     }
