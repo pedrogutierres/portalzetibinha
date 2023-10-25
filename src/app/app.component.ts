@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImbuimentProtecaoEnum, Item, Protecao, ProtecaoEnum, SlotEnum, VocacaoEnum } from './item.model';
+import { Sorcerer } from './sorcerer.service';
 
 @Component({
   selector: 'app-root',
@@ -77,8 +78,6 @@ export class AppComponent implements OnInit {
 
   itens: Item[] = [];
 
-
-
   constructor(
     private fb: FormBuilder,
     protected router: Router,
@@ -88,6 +87,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.calcular();
+    //this.carregarItens(VocacaoEnum.Sorcerer);
     //this.definirVocacao(VocacaoEnum.Sorcerer);
   }
 
@@ -183,63 +183,23 @@ export class AppComponent implements OnInit {
     }
   }
 
-  definirVocacao(vocacao: VocacaoEnum) {
+  carregarItens(vocacao: VocacaoEnum) {
     this.itens = [];
-    let id: number = 1;
 
     switch (vocacao) {
       case VocacaoEnum.Sorcerer:
-        // Helmets
-        this.itens.push(new Item(id++, "Arcanomancer Regalia", vocacao, SlotEnum.Helmet, 0, true, [new Protecao(ProtecaoEnum.Physical, 3), new Protecao(ProtecaoEnum.Earth, 7)], 0));
-        this.itens.push(new Item(id++, "Falcon Circlet", vocacao, SlotEnum.Helmet, 0, true, [new Protecao(ProtecaoEnum.Fire, 9)], 0));
-        this.itens.push(new Item(id++, "Eldritch Cowl", vocacao, SlotEnum.Helmet, 0, false, [new Protecao(ProtecaoEnum.Ice, 7)], 0));
-        this.itens.push(new Item(id++, "Galea Mortis", vocacao, SlotEnum.Helmet, 0, true, [new Protecao(ProtecaoEnum.Death, 6), new Protecao(ProtecaoEnum.Holy, -3)], 0));
-        this.itens.push(new Item(id++, "Gnome Helmet", vocacao, SlotEnum.Helmet, 0, true, [new Protecao(ProtecaoEnum.Physical, 3), new Protecao(ProtecaoEnum.Energy, 8), new Protecao(ProtecaoEnum.Ice, -2)], 0));
-
-        // Armors
-        this.itens.push(new Item(id++, "Soulmantle", vocacao, SlotEnum.Armor, 0, true, [new Protecao(ProtecaoEnum.Physical, 4)], 1, this.allImbuiments()));
-        this.itens.push(new Item(id++, "Elven Mail", vocacao, SlotEnum.Armor, 0, false, [], 2, this.allImbuiments()));
-        this.itens.push(new Item(id++, "Dawnfire Sherwani", vocacao, SlotEnum.Armor, 0, true, [new Protecao(ProtecaoEnum.Fire, 4), new Protecao(ProtecaoEnum.Earth, -2)], 0));
-        this.itens.push(new Item(id++, "Toga Mortis", vocacao, SlotEnum.Armor, 0, true, [new Protecao(ProtecaoEnum.Death, 6)], 0));
-        this.itens.push(new Item(id++, "Dream Shroud", vocacao, SlotEnum.Armor, 0, true, [new Protecao(ProtecaoEnum.Energy, 10)], 0));
-        this.itens.push(new Item(id++, "Living Armor", vocacao, SlotEnum.Armor, 0, true, [new Protecao(ProtecaoEnum.Earth, 12), new Protecao(ProtecaoEnum.Fire, -5)], 0));
-
-        // Legs
-        this.itens.push(new Item(id++, "Soulshanks", vocacao, SlotEnum.Legs, 0, true, [new Protecao(ProtecaoEnum.Death, 10)], 0));
-        this.itens.push(new Item(id++, "Dawnfire Pantaloons", vocacao, SlotEnum.Legs, 0, false, [new Protecao(ProtecaoEnum.Physical, 3)], 0));
-        this.itens.push(new Item(id++, "Gnome Legs", vocacao, SlotEnum.Legs, 0, false, [new Protecao(ProtecaoEnum.Energy, 7), new Protecao(ProtecaoEnum.Ice, -2)], 0));
-        this.itens.push(new Item(id++, "Soulful Legs", vocacao, SlotEnum.Legs, 0, true, [new Protecao(ProtecaoEnum.Holy, 8)], 0));
-        this.itens.push(new Item(id++, "Gill Legs", vocacao, SlotEnum.Legs, 0, true, [new Protecao(ProtecaoEnum.Earth, 8), new Protecao(ProtecaoEnum.Earth, -8)], 0));
-        this.itens.push(new Item(id++, "Icy Culottes", vocacao, SlotEnum.Legs, 0, false, [new Protecao(ProtecaoEnum.Ice, 8)], 0));
-        this.itens.push(new Item(id++, "Dwarven Legs", vocacao, SlotEnum.Legs, 0, true, [new Protecao(ProtecaoEnum.Physical, 3)], 0));
-
-        // Boots
-        this.itens.push(new Item(id++, "Sanguine Boots", vocacao, SlotEnum.Boots, 0, false, [new Protecao(ProtecaoEnum.Physical, 2), new Protecao(ProtecaoEnum.Fire, 8)], 0));
-        this.itens.push(new Item(id++, "Alchemist's Boots", vocacao, SlotEnum.Boots, 0, false, [new Protecao(ProtecaoEnum.Physical, 2)], 0));
-        this.itens.push(new Item(id++, "Pair of Dreamwalkers", vocacao, SlotEnum.Boots, 0, true, [new Protecao(ProtecaoEnum.Earth, 8)], 0));
-        this.itens.push(new Item(id++, "Makeshift Boots", vocacao, SlotEnum.Boots, 0, false, [new Protecao(ProtecaoEnum.Fire, 8)], 0));
-        this.itens.push(new Item(id++, "Pair of Nightmare Boots", vocacao, SlotEnum.Boots, 0, true, [new Protecao(ProtecaoEnum.Energy, 6)], 0));
-        this.itens.push(new Item(id++, "Void Boots", vocacao, SlotEnum.Boots, 0, true, [new Protecao(ProtecaoEnum.Energy, 10)], 0));
-
-        // Spellbooks
-        this.itens.push(new Item(id++, "Arcanomancer Folio", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, true, [new Protecao(ProtecaoEnum.Physical, 3), new Protecao(ProtecaoEnum.Fire, 8)], 1, [ImbuimentProtecaoEnum.Death, ImbuimentProtecaoEnum.Earth, ImbuimentProtecaoEnum.Energy, ImbuimentProtecaoEnum.Holy, ImbuimentProtecaoEnum.Ice]));
-        this.itens.push(new Item(id++, "Eldritch Folio", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, false, [new Protecao(ProtecaoEnum.Earth, 6)], 1, [ImbuimentProtecaoEnum.Death, ImbuimentProtecaoEnum.Energy, ImbuimentProtecaoEnum.Fire, ImbuimentProtecaoEnum.Holy, ImbuimentProtecaoEnum.Ice]));
-        this.itens.push(new Item(id++, "Alchemist's Notepad", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, false, [new Protecao(ProtecaoEnum.Death, 5)], 1, [ImbuimentProtecaoEnum.Earth, ImbuimentProtecaoEnum.Energy, ImbuimentProtecaoEnum.Fire, ImbuimentProtecaoEnum.Holy, ImbuimentProtecaoEnum.Ice]));
-        this.itens.push(new Item(id++, "Umbral Master Spellbook", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, false, [new Protecao(ProtecaoEnum.Earth, 5), new Protecao(ProtecaoEnum.Energy, 5), new Protecao(ProtecaoEnum.Fire, 5), new Protecao(ProtecaoEnum.Ice, 5)], 1, [ImbuimentProtecaoEnum.Death, ImbuimentProtecaoEnum.Holy]));
-        this.itens.push(new Item(id++, "Lion Spellbook", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, true, [new Protecao(ProtecaoEnum.Physical, 3), new Protecao(ProtecaoEnum.Ice, 7)], 1, [ImbuimentProtecaoEnum.Death, ImbuimentProtecaoEnum.Earth, ImbuimentProtecaoEnum.Energy, ImbuimentProtecaoEnum.Fire, ImbuimentProtecaoEnum.Holy]));
-        this.itens.push(new Item(id++, "Brain in a Jar", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, false, [new Protecao(ProtecaoEnum.Earth, 7)], 1, [ImbuimentProtecaoEnum.Death, ImbuimentProtecaoEnum.Energy, ImbuimentProtecaoEnum.Fire, ImbuimentProtecaoEnum.Holy, ImbuimentProtecaoEnum.Ice]));
-        this.itens.push(new Item(id++, "Shoulder Plate", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, true, [new Protecao(ProtecaoEnum.Physical, 3), new Protecao(ProtecaoEnum.Earth, 6)], 1, [ImbuimentProtecaoEnum.Death, ImbuimentProtecaoEnum.Energy, ImbuimentProtecaoEnum.Fire, ImbuimentProtecaoEnum.Holy, ImbuimentProtecaoEnum.Ice]));
-        this.itens.push(new Item(id++, "Spirit Guide", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, true, [new Protecao(ProtecaoEnum.Energy, 6)], 1, [ImbuimentProtecaoEnum.Death, ImbuimentProtecaoEnum.Earth, ImbuimentProtecaoEnum.Fire, ImbuimentProtecaoEnum.Holy, ImbuimentProtecaoEnum.Ice]));
-        this.itens.push(new Item(id++, "Spellbook of Ancient Arcana", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, false, [new Protecao(ProtecaoEnum.Death, 5)], 0));
-        this.itens.push(new Item(id++, "Umbral Spellbook", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, false, [new Protecao(ProtecaoEnum.Earth, 3), new Protecao(ProtecaoEnum.Energy, 3), new Protecao(ProtecaoEnum.Fire, 3), new Protecao(ProtecaoEnum.Ice, 3)], 1, [ImbuimentProtecaoEnum.Death, ImbuimentProtecaoEnum.Holy]));
-        this.itens.push(new Item(id++, "Spellbook of Vigilance", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, false, [new Protecao(ProtecaoEnum.Earth, 3), new Protecao(ProtecaoEnum.Fire, 5)], 0));
-        this.itens.push(new Item(id++, "Wooden Spellbook", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, false, [new Protecao(ProtecaoEnum.Earth, 5)], 1, [ImbuimentProtecaoEnum.Death, ImbuimentProtecaoEnum.Energy, ImbuimentProtecaoEnum.Fire, ImbuimentProtecaoEnum.Holy, ImbuimentProtecaoEnum.Ice]));
-        this.itens.push(new Item(id++, "Umbral Spellbook", vocacao, SlotEnum.ShieldOrSpellbookOrQuiver, 0, false, [new Protecao(ProtecaoEnum.Earth, 2), new Protecao(ProtecaoEnum.Energy, 2), new Protecao(ProtecaoEnum.Fire, 2), new Protecao(ProtecaoEnum.Ice, 2)], 0));
+        this.itens.push(...Sorcerer.itensSorcerer())
         break;
     }
+  }
 
-    //let dicHelmet = this.obterDicionarioItemEProtecoesLiberados(SlotEnum.Helmet);
+  get helmets() { return this.itens.filter(p => p.slot == SlotEnum.Helmet); }
+  get armors() { return this.itens.filter(p => p.slot == SlotEnum.Armor); }
+  get legs() { return this.itens.filter(p => p.slot == SlotEnum.Legs); }
+  get boots() { return this.itens.filter(p => p.slot == SlotEnum.Boots); }
+  get shields() { return this.itens.filter(p => p.slot == SlotEnum.ShieldOrSpellbookOrQuiver); }
 
+  sugerirItens() {
     let maiorDiminuicaoDeDano: number | undefined = undefined;
 
     let sHelmet: Item | undefined;
@@ -273,7 +233,6 @@ export class AppComponent implements OnInit {
 
               imbuimentsArmor.forEach(imbuiArmor => {
 
-
                 let imbuimentsShield = this.obterProtecoesDoItemViaImbuiments(shield);
                 if (!imbuimentsShield || imbuimentsShield.length == 0) {
                   imbuimentsShield = [];
@@ -281,7 +240,6 @@ export class AppComponent implements OnInit {
                 }
 
                 imbuimentsShield.forEach(imbuiShield => {
-
 
                   this.protecaoSugestao_Physical = 0;
                   this.protecaoSugestao_Fire = 0;

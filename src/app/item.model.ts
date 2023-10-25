@@ -43,6 +43,7 @@ export class Item {
   constructor(
     public id: number,
     public descricao: string,
+    public url: string,
     public vocacao: VocacaoEnum,
     public slot: SlotEnum,
     public pontos: number,
@@ -50,5 +51,16 @@ export class Item {
     public protecoes: Protecao[],
     public imbuimentSlot: number,
     public imbuiments?: ImbuimentProtecaoEnum[]) {
+  }
+
+  static allImbuiments(): ImbuimentProtecaoEnum[] {
+    return [
+      ImbuimentProtecaoEnum.Fire,
+      ImbuimentProtecaoEnum.Earth,
+      ImbuimentProtecaoEnum.Energy,
+      ImbuimentProtecaoEnum.Ice,
+      ImbuimentProtecaoEnum.Holy,
+      ImbuimentProtecaoEnum.Death,
+    ]
   }
 }

@@ -3,6 +3,7 @@
   <hr>
 
   <div>
+    <!-- Painel de dados -->
     <div class="row">
       <div class="form-group col-12 col-md-6 col-lg-4 mb-4">
         <label class="control-label" for="damage">Damage input</label>
@@ -55,7 +56,7 @@
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
               [(ngModel)]="protecaoAtual_Death" (ngModelChange)="calcular()">
           </div>
-          <br/>
+          <br />
         </div>
       </div>
 
@@ -129,6 +130,7 @@
 
     <br />
 
+    <!-- Painel de resultado -->
     <div class="row">
       <div class="form-group col-12 col-md-6 col-lg-4 mb-4">
         <div class="painel pb-3 text-center">
@@ -215,7 +217,7 @@
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
               [(ngModel)]="protecaoSugestao_Death" (ngModelChange)="calcular()">
           </div>
-          <br/>
+          <br />
         </div>
       </div>
 
@@ -297,6 +299,82 @@
         </div>
       </div>
     </div>
+
+    <br />
+
+    <!-- Painel de itens -->
+    <!-- <div class="row painel m-1 p-3 text-center">
+
+      <label class="control-label fs-5 mb-2">Sistema de sugestão de uso de itens</label>
+      <small>Selecione os itens que tem disponível para utilizar na hunt desejada (conforme damage input aplicado)</small>
+      <hr />
+
+      <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+        <label class="control-label fs-6 mb-2 ms-5">Helmets</label>
+
+        <div class="row">
+          <div class="form-check text-start mt-2" *ngFor="let item of helmets">
+            <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.liberado"
+              id="check{{item.id}}" style="cursor: pointer;">
+            <img [src]="item.url" style="cursor: pointer;" (click)="item.liberado = !item.liberado">
+            <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
+              {{item.descricao}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+        <label class="control-label fs-6 mb-2 ms-5">Armors</label>
+
+        <div class="row">
+          <div class="form-check text-start mt-2" *ngFor="let item of armors">
+            <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.liberado"
+              id="check{{item.id}}" style="cursor: pointer;">
+            <img [src]="item.url" style="cursor: pointer;" (click)="item.liberado = !item.liberado">
+            <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
+              {{item.descricao}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+        <label class="control-label fs-6 mb-2 ms-5">Legs</label>
+
+        <div class="row">
+          <div class="form-check text-start mt-2" *ngFor="let item of legs">
+            <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.liberado"
+              id="check{{item.id}}" style="cursor: pointer;">
+            <img [src]="item.url" style="cursor: pointer;" (click)="item.liberado = !item.liberado">
+            <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
+              {{item.descricao}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+        <label class="control-label fs-6 mb-2 ms-5">Boots</label>
+
+        <div class="row">
+          <div class="form-check text-start mt-2" *ngFor="let item of boots">
+            <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.liberado"
+              id="check{{item.id}}" style="cursor: pointer;">
+            <img [src]="item.url" style="cursor: pointer;" (click)="item.liberado = !item.liberado">
+            <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
+              {{item.descricao}}
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <hr/>
+      
+      <div class="col mb-2">
+        <button class="btn" (click)="sugerirItens()">Sugerir melhores itens</button>
+      </div>
+    </div> -->
   </div>
 </div>
 
