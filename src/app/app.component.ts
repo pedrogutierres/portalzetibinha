@@ -309,7 +309,7 @@ export class AppComponent implements OnInit {
     if (ringsSelecionados.length == 0) ringsSelecionados.push(this.itemDefault);
     if (extrasSlotsSelecionados.length == 0) extrasSlotsSelecionados.push(this.itemDefault);
 
-    const maximoDeCombinacoes = 200_000;
+    const maximoDeCombinacoes = 500_000;
 
     let combinacoesPossiveis = 1;
     helmetsSelecionados.forEach(helmet => {
