@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImbuimentProtecaoEnum, Item, Protecao, ProtecaoEnum, SlotEnum, VocacaoEnum } from './item.model';
@@ -11,7 +11,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
   title = 'Portal Ze Tibinha';
 
@@ -130,6 +130,9 @@ export class AppComponent implements OnInit {
     this.calcular();
   }
 
+  ngAfterViewInit(): void {
+  }
+
   calcular(resetarSugestao: boolean = true) {
     if (resetarSugestao) {
       this.sugestaoDeItensAplicada = false;
@@ -230,9 +233,12 @@ export class AppComponent implements OnInit {
   definirVocacao(vocacao: VocacaoEnum) {
     this.vocacaoSelecionada = vocacao;
 
+    this.handSugerido = undefined;
     this.limparSugestoes();
 
     this.carregarItens(vocacao);
+
+    this.obterItensSelecionadosPreviamente(vocacao);
   }
 
   carregarItens(vocacao: VocacaoEnum) {
@@ -268,7 +274,6 @@ export class AppComponent implements OnInit {
   extraSlotSugerido: Item | undefined;
 
   limparSugestoes() {
-    this.handSugerido = undefined;
     this.helmetSugerido = undefined;
     this.armorSugerida = undefined;
     this.armorImbuimentSugerido = [];
@@ -299,6 +304,10 @@ export class AppComponent implements OnInit {
     let amuletsSelecionados = this.amulets.filter(p => p.selecionado);
     let ringsSelecionados = this.rings.filter(p => p.selecionado);
     let extrasSlotsSelecionados = this.extrasSlots.filter(p => p.selecionado);
+
+    if (this.vocacaoSelecionada)
+      this.salvarItensSelecionados(this.vocacaoSelecionada, this.handSugerido?.id ?? 0, this.itens.filter(p => p.selecionado).map(p => p.id),
+        this.protecaoArvore_Fire, this.protecaoArvore_Energy, this.protecaoArvore_Ice, this.protecaoArvore_Earth);
 
     if (helmetsSelecionados.length == 0) helmetsSelecionados.push(this.itemDefault);
     if (armorsSelecionados.length == 0) armorsSelecionados.push(this.itemDefault);
@@ -361,7 +370,7 @@ export class AppComponent implements OnInit {
                         combinacoesPossiveis++;
 
                         if (combinacoesPossiveis > maximoDeCombinacoes) return;
-                        
+
                         this.protecaoSugestao_Physical = 0;
                         this.protecaoSugestao_Fire = 0;
                         this.protecaoSugestao_Earth = 0;
@@ -465,7 +474,49 @@ export class AppComponent implements OnInit {
 
     this.sugestaoDeItensAplicada = true;
 
-    this.toastr.success(`Dentre as mais de ${combinacoesPossiveis} combinações possíveis, encontramos a melhor para você.`);
+    if (this.danoAtual_Total > this.danoPossivel_Total)
+      this.toastr.success(`Dentre as mais de ${combinacoesPossiveis} combinações analisadas, encontramos a melhor para você.`, "", { timeOut: 10_000 });
+    else if (this.danoAtual_Total < this.danoPossivel_Total)
+      this.toastr.error(`Dentre as mais de ${combinacoesPossiveis} combinações analisadas, não encontramos melhorias possíveis.`, "", { timeOut: 10_000 });
+    else
+      this.toastr.warning(`Dentre as mais de ${combinacoesPossiveis} combinações analisadas, não encontramos melhorias possíveis.`, "", { timeOut: 10_000 });
+  }
+
+  salvarItensSelecionados(vocacao: VocacaoEnum, handId: number, itensId: number[], arvFire: number, arvEnergy: number, arvIce: number, arvEarth: number) {
+    localStorage.setItem("itens-selecionados",
+      JSON.stringify({
+        vocacao,
+        handId,
+        itensId,
+        arvFire: arvFire,
+        arvEnergy: arvEnergy,
+        arvIce: arvIce,
+        arvEarth: arvEarth,
+      }))
+  }
+  obterItensSelecionadosPreviamente(vocacao: VocacaoEnum) {
+    try {
+      let json = localStorage.getItem("itens-selecionados");
+      if (!json) return null;
+      var dados: { vocacao: VocacaoEnum, handId: number, itensId: number[], arvFire: number, arvEnergy: number, arvIce: number, arvEarth: number } = JSON.parse(json);
+      if (!dados || !dados?.vocacao || !dados?.itensId || dados?.itensId.length == 0) return;
+
+      this.itens?.forEach(item => {
+        if (dados.itensId.some(id => id == item.id))
+          item.selecionado = true;
+      });
+
+      if (dados.handId != undefined) this.handSugerido = this.itens.find(p => p.id == dados.handId);
+
+      if (dados.arvFire != undefined) this.protecaoArvore_Fire = dados.arvFire;
+      if (dados.arvEnergy != undefined) this.protecaoArvore_Energy = dados.arvEnergy;
+      if (dados.arvIce != undefined) this.protecaoArvore_Ice = dados.arvIce;
+      if (dados.arvEarth != undefined) this.protecaoArvore_Earth = dados.arvEarth;
+
+    } catch (err) {
+      console.error("Não foi possível obter os itens selecioandos. Erro: " + err)
+    }
+    return null;
   }
 
   aplicarProtecaoDoItem(protecoes: { protecao: ProtecaoEnum, valorProtecao: number }[]) {
