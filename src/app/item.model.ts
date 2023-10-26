@@ -29,13 +29,37 @@ export enum SlotEnum {
   Armor,
   Legs,
   Boots,
-  ShieldOrSpellbookOrQuiver
+  ShieldOrSpellbookOrQuiver,
+  Amulet,
+  Ring,
+  ExtraSlot
 }
 
 export class Protecao {
   constructor(
     public protecao: ProtecaoEnum,
     public percentual: number) {
+  }
+
+  protecaoText(): string {
+    switch (this.protecao) {
+      case ProtecaoEnum.Physical: return "Physical";
+      case ProtecaoEnum.Fire: return "Fire";
+      case ProtecaoEnum.Earth: return "Earth";
+      case ProtecaoEnum.Energy: return "Energy";
+      case ProtecaoEnum.Ice: return "Ice";
+      case ProtecaoEnum.Holy: return "Holy";
+      case ProtecaoEnum.Death: return "Death";
+      default: return "";
+    }
+  }
+
+  protecaoTextCompleto(): string {
+    if (this.percentual > 0)
+      return `${this.protecaoText()} +${this.percentual}%`;
+    else if (this.percentual < 0)
+      return `${this.protecaoText()} ${this.percentual}%`;
+    return '';
   }
 }
 

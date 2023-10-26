@@ -13,15 +13,30 @@ export class AppComponent implements OnInit {
 
   title = 'Portal Ze Tibinha';
 
-  damageInput: string = ``;
+  damageInput: string = `Received Damage
+  Total: 1,449,865
+  Max-DPS: 2,356
+  Damage Types
+    Physical 681,681 (47.0%)
+    Earth 387,830 (26.7%)
+    Fire 238,239 (16.4%)
+    Holy 74,613 (5.1%)
+    Energy 67,192 (4.6%)
+    Death 310 (0.0%)
+  Damage Sources
+    adult goanna 496,794 (34.3%)
+    feral sphinx 335,283 (23.1%)
+    young goanna 303,700 (20.9%)
+    manticore 74,615 (5.1%)
+    ogre rowdy 64,932 (4.5%)`;
 
-  protecaoAtual_Physical: number = 0;
-  protecaoAtual_Fire: number = 0;
-  protecaoAtual_Earth: number = 0;
-  protecaoAtual_Energy: number = 0;
+  protecaoAtual_Physical: number = 9;
+  protecaoAtual_Fire: number = 26;
+  protecaoAtual_Earth: number = 40;
+  protecaoAtual_Energy: number = 4;
   protecaoAtual_Ice: number = 0;
   protecaoAtual_Holy: number = 0;
-  protecaoAtual_Death: number = 0;
+  protecaoAtual_Death: number = 21;
 
   danoAtual_Physical: number = 0;
   danoAtual_Fire: number = 0;
@@ -77,6 +92,7 @@ export class AppComponent implements OnInit {
   danoPossivelPercentual_Total: number = 0;
 
   itens: Item[] = [];
+  sugestaoDeItensAplicada: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -91,7 +107,12 @@ export class AppComponent implements OnInit {
     //this.definirVocacao(VocacaoEnum.Sorcerer);
   }
 
-  calcular() {
+  calcular(resetarSugestao: boolean = true) {
+    if (resetarSugestao) {
+      this.sugestaoDeItensAplicada = false;
+      this.limparSugestoes();
+    }
+
     const damageArray = this.damageInput.split(/\r?\n/)
     if (!damageArray) return;
 
@@ -199,16 +220,30 @@ export class AppComponent implements OnInit {
   get boots() { return this.itens.filter(p => p.slot == SlotEnum.Boots); }
   get shields() { return this.itens.filter(p => p.slot == SlotEnum.ShieldOrSpellbookOrQuiver); }
 
+  helmetSugerido: Item | undefined;
+  armorSugerida: Item | undefined;
+  armorImbuimentSugerido: ProtecaoEnum[] = [];
+  legsSugerida: Item | undefined;
+  bootsSugerida: Item | undefined;
+  shieldSugerido: Item | undefined;
+  shieldImbuimentSugerido: ProtecaoEnum[] = [];
+
+  limparSugestoes() {
+    this.helmetSugerido = undefined;
+    this.armorSugerida = undefined;
+    this.armorImbuimentSugerido = [];
+    this.legsSugerida = undefined;
+    this.bootsSugerida = undefined;
+    this.shieldSugerido = undefined;
+    this.shieldImbuimentSugerido = [];
+  }
+
   sugerirItens() {
+    this.sugestaoDeItensAplicada = false;
+
     let maiorDiminuicaoDeDano: number | undefined = undefined;
 
-    let sHelmet: Item | undefined;
-    let sArmor: Item | undefined;
-    let sArmorImbuiment: ProtecaoEnum | undefined;
-    let sShieldImbuiment: ProtecaoEnum | undefined;
-    let sLegs: Item | undefined;
-    let sBoots: Item | undefined;
-    let sShield: Item | undefined;
+    this.limparSugestoes();
 
     this.itens.filter(p => p.liberado && p.slot == SlotEnum.Helmet).forEach(helmet => {
       let protecoesHelmet = this.obterProtecoesDoItem(helmet);
@@ -257,28 +292,28 @@ export class AppComponent implements OnInit {
                   this.aplicarProtecaoDoItem(protecoesBoots);
                   this.aplicarProtecaoDoItem(protecoesShield);
 
-                  this.calcular();
+                  this.calcular(false);
 
                   if (maiorDiminuicaoDeDano == undefined) {
                     maiorDiminuicaoDeDano = (this.danoAtual_Total - this.danoPossivel_Total);
-                    sHelmet = helmet;
-                    sArmor = armor;
-                    sLegs = legs;
-                    sBoots = boots;
-                    sShield = shield;
-                    sArmorImbuiment = imbuiArmor?.protecao;
-                    sShieldImbuiment = imbuiShield?.protecao;
+                    this.helmetSugerido = helmet;
+                    this.armorSugerida = armor;
+                    this.legsSugerida = legs;
+                    this.bootsSugerida = boots;
+                    this.shieldSugerido = shield;
+                    this.armorImbuimentSugerido = (imbuiArmor?.protecao ?? false) ? [imbuiArmor?.protecao] : [];
+                    this.shieldImbuimentSugerido = (imbuiShield?.protecao ?? false) ? [imbuiShield?.protecao] : [];
                   } else {
                     if ((this.danoAtual_Total - this.danoPossivel_Total) > maiorDiminuicaoDeDano) {
                       console.log(maiorDiminuicaoDeDano)
                       maiorDiminuicaoDeDano = (this.danoAtual_Total - this.danoPossivel_Total);
-                      sHelmet = helmet;
-                      sArmor = armor;
-                      sLegs = legs;
-                      sBoots = boots;
-                      sShield = shield;
-                      sArmorImbuiment = imbuiArmor?.protecao;
-                      sShieldImbuiment = imbuiShield?.protecao;
+                      this.helmetSugerido = helmet;
+                      this.armorSugerida = armor;
+                      this.legsSugerida = legs;
+                      this.bootsSugerida = boots;
+                      this.shieldSugerido = shield;
+                      this.armorImbuimentSugerido = imbuiArmor ? [imbuiArmor?.protecao] : [];
+                      this.shieldImbuimentSugerido =  (imbuiShield?.protecao ?? false) ? [imbuiShield?.protecao] : [];
                     }
                   }
                 });
@@ -290,8 +325,6 @@ export class AppComponent implements OnInit {
       })
     })
 
-    console.log(maiorDiminuicaoDeDano);
-
     this.protecaoSugestao_Physical = 0;
     this.protecaoSugestao_Fire = 0;
     this.protecaoSugestao_Earth = 0;
@@ -300,15 +333,13 @@ export class AppComponent implements OnInit {
     this.protecaoSugestao_Holy = 0;
     this.protecaoSugestao_Death = 0;
 
-    console.log('resetou')
-
-    if (sHelmet != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(sHelmet));
-    if (sArmor != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(sArmor));
-    if (sArmorImbuiment != undefined) this.aplicarProtecaoDoItem([{ protecao: sArmorImbuiment, valorProtecao: 15 }])
-    if (sLegs != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(sLegs));
-    if (sBoots != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(sBoots));
-    if (sShield != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(sShield));
-    if (sShieldImbuiment != undefined) this.aplicarProtecaoDoItem([{ protecao: sShieldImbuiment, valorProtecao: 15 }])
+    if (this.helmetSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.helmetSugerido));
+    if (this.armorSugerida != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.armorSugerida));
+    if (this.armorImbuimentSugerido != undefined) this.armorImbuimentSugerido.forEach(imbui => this.aplicarProtecaoDoItem([{ protecao: imbui, valorProtecao: 15 }]))
+    if (this.legsSugerida != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.legsSugerida));
+    if (this.bootsSugerida != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.bootsSugerida));
+    if (this.shieldSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.shieldSugerido));
+    if (this.shieldImbuimentSugerido != undefined) this.shieldImbuimentSugerido.forEach(imbui => this.aplicarProtecaoDoItem([{ protecao: imbui, valorProtecao: 15 }]))
 
     // sun catche
     this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Fire, valorProtecao: 5 }])
@@ -331,17 +362,9 @@ export class AppComponent implements OnInit {
     this.protecaoSugestao_Holy = Math.round(this.protecaoSugestao_Holy);
     this.protecaoSugestao_Death = Math.round(this.protecaoSugestao_Death);
 
-    console.log(sHelmet?.descricao);
-    console.log(sArmor?.descricao);
-    console.log('Armor imbui: ' + sArmorImbuiment);
-    console.log(sLegs?.descricao);
-    console.log(sBoots?.descricao);
-    console.log(sShield?.descricao);
-    console.log('Shield imbui: ' + sShieldImbuiment);
+    this.calcular(false);
 
-    this.calcular();
-
-    console.log((this.danoAtual_Total - this.danoPossivel_Total));
+    this.sugestaoDeItensAplicada = true;
   }
 
   aplicarProtecaoDoItem(protecoes: { protecao: ProtecaoEnum, valorProtecao: number }[]) {
@@ -448,5 +471,23 @@ export class AppComponent implements OnInit {
       ImbuimentProtecaoEnum.Holy,
       ImbuimentProtecaoEnum.Death,
     ]
+  }
+
+
+
+  imbuimentText(imbui: ProtecaoEnum): string {
+    switch (imbui) {
+      case ProtecaoEnum.Fire: return "Imbuiment Fire";
+      case ProtecaoEnum.Earth: return "Imbuiment Earth";
+      case ProtecaoEnum.Energy: return "Imbuiment Energy";
+      case ProtecaoEnum.Ice: return "Imbuiment Ice";
+      case ProtecaoEnum.Holy: return "Imbuiment Holy";
+      case ProtecaoEnum.Death: return "Imbuiment Death";
+      default: return "";
+    }
+  }
+
+  imbuimentTextCompleto(imbui: ProtecaoEnum, percentual: number): string {
+    return `${this.imbuimentText(imbui)} +${percentual}%`;
   }
 }
