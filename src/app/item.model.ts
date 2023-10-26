@@ -1,5 +1,5 @@
 export enum VocacaoEnum {
-  Knight,
+  Knight = 1,
   Paladin,
   Druid,
   Sorcerer
@@ -7,6 +7,8 @@ export enum VocacaoEnum {
 
 export enum ProtecaoEnum {
   Physical,
+  LifeDrain,
+  ManaDrain,
   Fire,
   Earth,
   Energy,
@@ -44,6 +46,8 @@ export class Protecao {
   protecaoText(): string {
     switch (this.protecao) {
       case ProtecaoEnum.Physical: return "Physical";
+      case ProtecaoEnum.LifeDrain: return "Life Drain";
+      case ProtecaoEnum.ManaDrain: return "Mana Drain";
       case ProtecaoEnum.Fire: return "Fire";
       case ProtecaoEnum.Earth: return "Earth";
       case ProtecaoEnum.Energy: return "Energy";
@@ -71,7 +75,7 @@ export class Item {
     public vocacao: VocacaoEnum,
     public slot: SlotEnum,
     public pontos: number,
-    public liberado: boolean,
+    public selecionado: boolean,
     public protecoes: Protecao[],
     public imbuimentSlot: number,
     public imbuiments?: ImbuimentProtecaoEnum[]) {

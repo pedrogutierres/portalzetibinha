@@ -1,5 +1,13 @@
 <div class="main-container p-2">
   <h2>Cálculo de danos (recebidos)</h2>
+  <small style="font-size: .75rem; line-height: normal;">
+    Este sistema busca te ajudar a encontrar a melhor combinação de itens para aumentar/aprimorar a sua defesa de danos
+    na hunt<br />
+    Para isto você deve (após finalizar a hunt) informar no Damage input o dano recebido, e preencher as colunas de
+    proteção atual (lembrando que deve a proteção real constante no inspect combat status do personagem)<br />
+    Após isto, você mode ir modificando os seus itens para novas combinações de proteção, e preencher na sugestão, assim
+    o sistema irá te mostrar o impacto positivo ou negativo da mudança
+  </small>
   <hr>
 
   <div>
@@ -303,193 +311,425 @@
     <br />
 
     <!-- Painel de itens -->
-    <!-- <div class="row painel m-1 p-3 text-center">
+    <div class="row painel m-1 p-3 text-center">
 
       <label class="control-label fs-5 mb-2">Sistema de sugestão de uso de itens</label>
-      <small>Selecione os itens que tem disponível para utilizar na hunt desejada (conforme damage input
-        aplicado)</small>
+
+      <div class="row mb-3">
+        <div class="d-flex justify-content-center gap-2">
+          <button class="btn" [ngClass]="{'selecionado': vocacaoSelecionada == 1}" (click)="definirVocacao(1)">
+            Knight
+          </button>
+          <button class="btn" [ngClass]="{'selecionado': vocacaoSelecionada == 2}" (click)="definirVocacao(2)">
+            Paladin
+          </button>
+          <button class="btn" [ngClass]="{'selecionado': vocacaoSelecionada == 3}" (click)="definirVocacao(3)">
+            Druid
+          </button>
+          <button class="btn" [ngClass]="{'selecionado': vocacaoSelecionada == 4}" (click)="definirVocacao(4)">
+            Sorcerer
+          </button>
+        </div>
+      </div>
+
+      <small *ngIf="vocacaoSelecionada">
+        Selecione os itens que tem disponível para utilizar na hunt desejada (conforme damage input aplicado)
+      </small>
       <hr />
 
-      <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-        <label class="control-label fs-6 mb-2 ms-5">Helmets</label>
-
-        <div class="row">
-          <div class="form-check text-start mt-2" *ngFor="let item of helmets">
-            <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.liberado" id="check{{item.id}}"
-              style="cursor: pointer;">
-            <img [src]="item.url" style="cursor: pointer;" (click)="item.liberado = !item.liberado">
-            <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
-              {{item.descricao}}
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-        <label class="control-label fs-6 mb-2 ms-5">Armors</label>
-
-        <div class="row">
-          <div class="form-check text-start mt-2" *ngFor="let item of armors">
-            <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.liberado" id="check{{item.id}}"
-              style="cursor: pointer;">
-            <img [src]="item.url" style="cursor: pointer;" (click)="item.liberado = !item.liberado">
-            <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
-              {{item.descricao}}
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-        <label class="control-label fs-6 mb-2 ms-5">Legs</label>
-
-        <div class="row">
-          <div class="form-check text-start mt-2" *ngFor="let item of legs">
-            <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.liberado" id="check{{item.id}}"
-              style="cursor: pointer;">
-            <img [src]="item.url" style="cursor: pointer;" (click)="item.liberado = !item.liberado">
-            <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
-              {{item.descricao}}
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-        <label class="control-label fs-6 mb-2 ms-5">Boots</label>
-
-        <div class="row">
-          <div class="form-check text-start mt-2" *ngFor="let item of boots">
-            <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.liberado" id="check{{item.id}}"
-              style="cursor: pointer;">
-            <img [src]="item.url" style="cursor: pointer;" (click)="item.liberado = !item.liberado">
-            <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
-              {{item.descricao}}
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-        <label class="control-label fs-6 mb-2 ms-5">Spellbooks</label>
-
-        <div class="row">
-          <div class="form-check text-start mt-2" *ngFor="let item of shields">
-            <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.liberado" id="check{{item.id}}"
-              style="cursor: pointer;">
-            <img [src]="item.url" style="cursor: pointer;" (click)="item.liberado = !item.liberado">
-            <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
-              {{item.descricao}}
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <hr />
-      <div class="row">
-        <div class="col mb-2">
-          <button class="btn" (click)="sugerirItens()">Sugerir melhores itens</button>
-        </div>
-      </div>
-
-      <div class="row" *ngIf="sugestaoDeItensAplicada">
+      <ng-container *ngIf="vocacaoSelecionada">
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-          <label class="control-label fs-6 mb-2 ms-5"></label>
+          <label class="control-label fs-6 mb-2 ms-5">Helmets</label>
 
-          <div class="d-flex flex-row align-items-center" *ngIf="helmetSugerido">
-            <img [src]="helmetSugerido.url">
-            <div class="d-flex flex-column ms-1">
-              <label class="control-label" style="cursor: pointer;">
-                {{helmetSugerido.descricao}}
+          <div class="row">
+            <div class="form-check text-start mt-2" *ngFor="let item of helmets">
+              <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
+                id="check{{item.id}}" style="cursor: pointer;">
+              <img [src]="item.url" style="cursor: pointer;" (click)="item.selecionado = !item.selecionado">
+              <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
+                {{item.descricao}}
               </label>
-              <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of helmetSugerido.protecoes"
-                [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
-                {{protecao.protecaoTextCompleto()}}
-              </small>
             </div>
-
           </div>
         </div>
 
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-          <label class="control-label fs-6 mb-2 ms-5"></label>
+          <label class="control-label fs-6 mb-2 ms-5">Armors</label>
 
-          <div class="d-flex flex-row align-items-center" *ngIf="armorSugerida">
-            <img [src]="armorSugerida.url">
-            <div class="d-flex flex-column ms-1">
-              <label class="control-label" style="cursor: pointer;">
-                {{armorSugerida.descricao}}
+          <div class="row">
+            <div class="form-check text-start mt-2" *ngFor="let item of armors">
+              <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
+                id="check{{item.id}}" style="cursor: pointer;">
+              <img [src]="item.url" style="cursor: pointer;" (click)="item.selecionado = !item.selecionado">
+              <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
+                {{item.descricao}}
               </label>
-              <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of armorSugerida.protecoes"
-                [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
-                {{protecao.protecaoTextCompleto()}}
-              </small>
-              <small class="ms-3 text-warning" style="font-size: 0.8rem;" *ngFor="let imbui of armorImbuimentSugerido">
-                {{imbuimentTextCompleto(imbui, 15)}}
-              </small>
             </div>
-
           </div>
         </div>
 
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-          <label class="control-label fs-6 mb-2 ms-5"></label>
+          <label class="control-label fs-6 mb-2 ms-5">Legs</label>
 
-          <div class="d-flex flex-row align-items-center" *ngIf="legsSugerida">
-            <img [src]="legsSugerida.url">
-            <div class="d-flex flex-column ms-1">
-              <label class="control-label" style="cursor: pointer;">
-                {{legsSugerida.descricao}}
+          <div class="row">
+            <div class="form-check text-start mt-2" *ngFor="let item of legs">
+              <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
+                id="check{{item.id}}" style="cursor: pointer;">
+              <img [src]="item.url" style="cursor: pointer;" (click)="item.selecionado = !item.selecionado">
+              <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
+                {{item.descricao}}
               </label>
-              <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of legsSugerida.protecoes"
-                [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
-                {{protecao.protecaoTextCompleto()}}
-              </small>
             </div>
-
           </div>
         </div>
 
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-          <label class="control-label fs-6 mb-2 ms-5"></label>
+          <label class="control-label fs-6 mb-2 ms-5">Boots</label>
 
-          <div class="d-flex flex-row align-items-center" *ngIf="bootsSugerida">
-            <img [src]="bootsSugerida.url">
-            <div class="d-flex flex-column ms-1">
-              <label class="control-label" style="cursor: pointer;">
-                {{bootsSugerida.descricao}}
+          <div class="row">
+            <div class="form-check text-start mt-2" *ngFor="let item of boots">
+              <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
+                id="check{{item.id}}" style="cursor: pointer;">
+              <img [src]="item.url" style="cursor: pointer;" (click)="item.selecionado = !item.selecionado">
+              <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
+                {{item.descricao}}
               </label>
-              <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of bootsSugerida.protecoes"
-                [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
-                {{protecao.protecaoTextCompleto()}}
-              </small>
             </div>
-
           </div>
         </div>
 
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-          <label class="control-label fs-6 mb-2 ms-5"></label>
+          <label class="control-label fs-6 mb-2 ms-5">Spellbooks</label>
 
-          <div class="d-flex flex-row align-items-center" *ngIf="shieldSugerido">
-            <img [src]="shieldSugerido.url">
-            <div class="d-flex flex-column ms-1">
-              <label class="control-label" style="cursor: pointer;">
-                {{shieldSugerido.descricao}}
+          <div class="row">
+            <div class="form-check text-start mt-2" *ngFor="let item of shields">
+              <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
+                id="check{{item.id}}" style="cursor: pointer;">
+              <img [src]="item.url" style="cursor: pointer;" (click)="item.selecionado = !item.selecionado">
+              <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
+                {{item.descricao}}
               </label>
-              <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of shieldSugerido.protecoes"
-                [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
-                {{protecao.protecaoTextCompleto()}}
-              </small>
-              <small class="ms-3 text-warning" style="font-size: 0.8rem;" *ngFor="let imbui of shieldImbuimentSugerido">
-                {{imbuimentTextCompleto(imbui, 15)}}
-              </small>
             </div>
-
           </div>
         </div>
-      </div>
-    </div> -->
+
+        <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+          <label class="control-label fs-6 mb-2 ms-5">Amuletos</label>
+
+          <div class="d-flex flex-row flex-wrap gap-2">
+            <div class="form-check text-start mt-2 me-4" *ngFor="let item of amulets" ngbTooltip="{{item.descricao}}">
+              <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
+                id="check{{item.id}}" style="cursor: pointer;">
+              <img [src]="item.url" style="cursor: pointer;" (click)="item.selecionado = !item.selecionado">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+          <label class="control-label fs-6 mb-2 ms-5">Rings</label>
+
+          <div class="row">
+            <div class="form-check text-start mt-2" *ngFor="let item of rings">
+              <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
+                id="check{{item.id}}" style="cursor: pointer;">
+              <img [src]="item.url" style="cursor: pointer;" (click)="item.selecionado = !item.selecionado">
+              <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
+                {{item.descricao}}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+          <label class="control-label fs-6 mb-2 ms-5">Extra Slots</label>
+
+          <div class="row">
+            <div class="form-check text-start mt-2" *ngFor="let item of extrasSlots">
+              <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
+                id="check{{item.id}}" style="cursor: pointer;">
+              <img [src]="item.url" style="cursor: pointer;" (click)="item.selecionado = !item.selecionado">
+              <label class="form-check-label ms-1" for="check{{item.id}}" style="cursor: pointer;">
+                {{item.descricao}}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group col-12 text-center">
+          <label class="control-label fs-6 mb-2 ms-5">Proteção Árvore do Destino (Skill)</label>
+
+          <div class="d-flex flex-row flex-wrap gap-2" style="font-size: .8rem;">
+
+            <!-- Árvore Proteção Fire -->
+            <div class="d-flex flex-row align-items-center">
+              <span class="icon-protecao" style="cursor: pointer; --icon: 0"></span>
+              <div class="d-flex flex-column ms-1">
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvFire" id="arvFire0"
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Fire" value="0" checked>
+                  <label class="form-check-label ms-1" for="arvFire0" style="cursor: pointer;">
+                    Nenhum
+                  </label>
+                </div>
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvFire" id="arvFire1"
+                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Fire" value="2">
+                  <label class="form-check-label ms-1" for="arvFire1" style="cursor: pointer;">
+                    Nível 1 (+2%)
+                  </label>
+                </div>
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvFire" id="arvFire2"
+                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Fire" value="4">
+                  <label class="form-check-label ms-1" for="arvFire2" style="cursor: pointer;">
+                    Nível 2 (+4%)
+                  </label>
+                </div>
+              </div>
+            </div>
+
+             <!-- Árvore Proteção Energy -->
+             <div class="d-flex flex-row align-items-center">
+              <span class="icon-protecao energy" style="cursor: pointer;"></span>
+              <div class="d-flex flex-column ms-1">
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvEnergy" id="arvEnergy0"
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Energy" value="0" checked>
+                  <label class="form-check-label ms-1" for="arvEnergy0" style="cursor: pointer;">
+                    Nenhum
+                  </label>
+                </div>
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvEnergy" id="arvEnergy1"
+                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Energy" value="2">
+                  <label class="form-check-label ms-1" for="arvEnergy1" style="cursor: pointer;">
+                    Nível 1 (+2%)
+                  </label>
+                </div>
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvEnergy" id="arvEnergy2"
+                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Energy" value="4">
+                  <label class="form-check-label ms-1" for="arvEnergy2" style="cursor: pointer;">
+                    Nível 2 (+4%)
+                  </label>
+                </div>
+              </div>
+            </div>
+
+             <!-- Árvore Proteção Ice -->
+             <div class="d-flex flex-row align-items-center">
+              <span class="icon-protecao ice" style="cursor: pointer;"></span>
+              <div class="d-flex flex-column ms-1">
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvIce" id="arvIce0"
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Ice" value="0" checked>
+                  <label class="form-check-label ms-1" for="arvIce0" style="cursor: pointer;">
+                    Nenhum
+                  </label>
+                </div>
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvIce" id="arvIce1"
+                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Ice" value="2">
+                  <label class="form-check-label ms-1" for="arvIce1" style="cursor: pointer;">
+                    Nível 1 (+2%)
+                  </label>
+                </div>
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvIce" id="arvIce2"
+                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Ice" value="4">
+                  <label class="form-check-label ms-1" for="arvIce2" style="cursor: pointer;">
+                    Nível 2 (+4%)
+                  </label>
+                </div>
+              </div>
+            </div>
+
+             <!-- Árvore Proteção Earth -->
+             <div class="d-flex flex-row align-items-center">
+              <span class="icon-protecao earth" style="cursor: pointer;"></span>
+              <div class="d-flex flex-column ms-1">
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvEarth" id="arvEarth0"
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Earth" value="0" checked>
+                  <label class="form-check-label ms-1" for="arvEarth0" style="cursor: pointer;">
+                    Nenhum
+                  </label>
+                </div>
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvEarth" id="arvEarth1"
+                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Earth" value="2">
+                  <label class="form-check-label ms-1" for="arvEarth1" style="cursor: pointer;">
+                    Nível 1 (+2%)
+                  </label>
+                </div>
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="form-check-input text-right" type="radio" name="arvEarth" id="arvEarth2"
+                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Earth" value="4">
+                  <label class="form-check-label ms-1" for="arvEarth2" style="cursor: pointer;">
+                    Nível 2 (+4%)
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+        <div class="row">
+          <div class="col mb-2">
+            <button class="btn" (click)="sugerirItens()">Sugerir melhores itens</button>
+          </div>
+        </div>
+
+        <!-- Helmet Sugerida -->
+        <div class="row" *ngIf="sugestaoDeItensAplicada">
+          <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+            <label class="control-label fs-6 mb-2 ms-5"></label>
+            <div class="d-flex flex-row align-items-center" *ngIf="helmetSugerido">
+              <img [src]="helmetSugerido.url">
+              <div class="d-flex flex-column ms-1">
+                <label class="control-label" style="cursor: pointer;">
+                  {{helmetSugerido.descricao}}
+                </label>
+                <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of helmetSugerido.protecoes"
+                  [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
+                  {{protecao.protecaoTextCompleto()}}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Armor Sugerida -->
+          <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+            <label class="control-label fs-6 mb-2 ms-5"></label>
+            <div class="d-flex flex-row align-items-center" *ngIf="armorSugerida">
+              <img [src]="armorSugerida.url">
+              <div class="d-flex flex-column ms-1">
+                <label class="control-label" style="cursor: pointer;">
+                  {{armorSugerida.descricao}}
+                </label>
+                <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of armorSugerida.protecoes"
+                  [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
+                  {{protecao.protecaoTextCompleto()}}
+                </small>
+                <small class="ms-3 text-warning" style="font-size: 0.8rem;"
+                  *ngFor="let imbui of armorImbuimentSugerido">
+                  {{imbuimentTextCompleto(imbui, 15)}}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Legs Sugerida -->
+          <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+            <label class="control-label fs-6 mb-2 ms-5"></label>
+            <div class="d-flex flex-row align-items-center" *ngIf="legsSugerida">
+              <img [src]="legsSugerida.url">
+              <div class="d-flex flex-column ms-1">
+                <label class="control-label" style="cursor: pointer;">
+                  {{legsSugerida.descricao}}
+                </label>
+                <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of legsSugerida.protecoes"
+                  [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
+                  {{protecao.protecaoTextCompleto()}}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Boots Sugerida -->
+          <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+            <label class="control-label fs-6 mb-2 ms-5"></label>
+            <div class="d-flex flex-row align-items-center" *ngIf="bootsSugerida">
+              <img [src]="bootsSugerida.url">
+              <div class="d-flex flex-column ms-1">
+                <label class="control-label" style="cursor: pointer;">
+                  {{bootsSugerida.descricao}}
+                </label>
+                <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of bootsSugerida.protecoes"
+                  [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
+                  {{protecao.protecaoTextCompleto()}}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Shield / Spellbook / Quiver Sugerido -->
+          <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+            <label class="control-label fs-6 mb-2 ms-5"></label>
+            <div class="d-flex flex-row align-items-center" *ngIf="shieldSugerido">
+              <img [src]="shieldSugerido.url">
+              <div class="d-flex flex-column ms-1">
+                <label class="control-label" style="cursor: pointer;">
+                  {{shieldSugerido.descricao}}
+                </label>
+                <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of shieldSugerido.protecoes"
+                  [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
+                  {{protecao.protecaoTextCompleto()}}
+                </small>
+                <small class="ms-3 text-warning" style="font-size: 0.8rem;"
+                  *ngFor="let imbui of shieldImbuimentSugerido">
+                  {{imbuimentTextCompleto(imbui, 15)}}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Amulet Sugerido -->
+          <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+            <label class="control-label fs-6 mb-2 ms-5"></label>
+            <div class="d-flex flex-row align-items-center" *ngIf="amuletSugerido">
+              <img [src]="amuletSugerido.url">
+              <div class="d-flex flex-column ms-1">
+                <label class="control-label" style="cursor: pointer;">
+                  {{amuletSugerido.descricao}}
+                </label>
+                <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of amuletSugerido.protecoes"
+                  [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
+                  {{protecao.protecaoTextCompleto()}}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ring Sugerido -->
+          <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+            <label class="control-label fs-6 mb-2 ms-5"></label>
+            <div class="d-flex flex-row align-items-center" *ngIf="ringSugerido">
+              <img [src]="ringSugerido.url">
+              <div class="d-flex flex-column ms-1">
+                <label class="control-label" style="cursor: pointer;">
+                  {{ringSugerido.descricao}}
+                </label>
+                <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of ringSugerido.protecoes"
+                  [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
+                  {{protecao.protecaoTextCompleto()}}
+                </small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Extra Slot Sugerido -->
+          <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
+            <label class="control-label fs-6 mb-2 ms-5"></label>
+            <div class="d-flex flex-row align-items-center" *ngIf="extraSlotSugerido">
+              <img [src]="extraSlotSugerido.url">
+              <div class="d-flex flex-column ms-1">
+                <label class="control-label" style="cursor: pointer;">
+                  {{extraSlotSugerido.descricao}}
+                </label>
+                <small class="ms-3" style="font-size: 0.8rem;" *ngFor="let protecao of extraSlotSugerido.protecoes"
+                  [ngClass]="{'text-success': protecao.percentual > 0, 'text-danger': protecao.percentual < 0}">
+                  {{protecao.protecaoTextCompleto()}}
+                </small>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </ng-container>
+
+    </div>
 
   </div>
 </div>

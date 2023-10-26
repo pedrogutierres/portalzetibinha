@@ -44,6 +44,10 @@ body {
   &:active {
     border-image: url("./assets/button-pressed.webp") 1 fill !important;
   }
+
+  &.selecionado {
+    border-image: url("./assets/button-pressed.webp") 1 fill !important;
+  }
 }
 
 .painel {
@@ -56,4 +60,33 @@ body {
 
 input {
   line-height: 10px;
+}
+
+.icon-protecao {
+  background-image: url("./assets/icons-wheel.webp");
+  width: 32px;
+  height: 32px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: inline-block;
+
+  &.fire {
+    --icon: 0;
+    background-position-x: calc(var(0)*32*-1);
+  }
+
+  &.energy {
+    --icon: 1;
+    background-position-x: calc(var(1)*32*-1);
+  }
+
+  &.ice {
+    --icon: 2;
+    background-position-x: calc(2*32*-1);
+  }
+
+  .earth {
+    --icon: 3;
+    background-position-x: calc(3*32*-1);
+  }
 }

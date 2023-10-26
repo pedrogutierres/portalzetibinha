@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImbuimentProtecaoEnum, Item, Protecao, ProtecaoEnum, SlotEnum, VocacaoEnum } from './item.model';
@@ -13,15 +13,30 @@ export class AppComponent implements OnInit {
 
   title = 'Portal Ze Tibinha';
 
-  damageInput: string = ``;
+  damageInput: string = `Received Damage
+  Total: 1,449,865
+  Max-DPS: 2,356
+  Damage Types
+    Physical 681,681 (47.0%)
+    Earth 387,830 (26.7%)
+    Fire 238,239 (16.4%)
+    Holy 74,613 (5.1%)
+    Energy 67,192 (4.6%)
+    Death 310 (0.0%)
+  Damage Sources
+    adult goanna 496,794 (34.3%)
+    feral sphinx 335,283 (23.1%)
+    young goanna 303,700 (20.9%)
+    manticore 74,615 (5.1%)
+    ogre rowdy 64,932 (4.5%)`;
 
-  protecaoAtual_Physical: number = 0;
-  protecaoAtual_Fire: number = 0;
-  protecaoAtual_Earth: number = 0;
-  protecaoAtual_Energy: number = 0;
+  protecaoAtual_Physical: number = 9;
+  protecaoAtual_Fire: number = 26;
+  protecaoAtual_Earth: number = 40;
+  protecaoAtual_Energy: number = 4;
   protecaoAtual_Ice: number = 0;
   protecaoAtual_Holy: number = 0;
-  protecaoAtual_Death: number = 0;
+  protecaoAtual_Death: number = 21;
 
   danoAtual_Physical: number = 0;
   danoAtual_Fire: number = 0;
@@ -76,20 +91,26 @@ export class AppComponent implements OnInit {
 
   danoPossivelPercentual_Total: number = 0;
 
+  vocacaoSelecionada: VocacaoEnum | undefined;
+
+  protecaoArvore_Fire: number = 0;
+  protecaoArvore_Energy: number = 0;
+  protecaoArvore_Ice: number = 0;
+  protecaoArvore_Earth: number = 0;
+
   itens: Item[] = [];
   sugestaoDeItensAplicada: boolean = false;
 
   constructor(
     private fb: FormBuilder,
-    protected router: Router,
-    protected route: ActivatedRoute) {
+    private router: Router,
+    private route: ActivatedRoute,
+    private changeDetector: ChangeDetectorRef) {
 
   }
 
   ngOnInit(): void {
     this.calcular();
-    //this.carregarItens(VocacaoEnum.Sorcerer);
-    //this.definirVocacao(VocacaoEnum.Sorcerer);
   }
 
   calcular(resetarSugestao: boolean = true) {
@@ -189,6 +210,12 @@ export class AppComponent implements OnInit {
     }
   }
 
+  definirVocacao(vocacao: VocacaoEnum) {
+    this.vocacaoSelecionada = vocacao;
+
+    this.carregarItens(vocacao);
+  }
+
   carregarItens(vocacao: VocacaoEnum) {
     this.itens = [];
 
@@ -204,6 +231,9 @@ export class AppComponent implements OnInit {
   get legs() { return this.itens.filter(p => p.slot == SlotEnum.Legs); }
   get boots() { return this.itens.filter(p => p.slot == SlotEnum.Boots); }
   get shields() { return this.itens.filter(p => p.slot == SlotEnum.ShieldOrSpellbookOrQuiver); }
+  get amulets() { return this.itens.filter(p => p.slot == SlotEnum.Amulet); }
+  get rings() { return this.itens.filter(p => p.slot == SlotEnum.Ring); }
+  get extrasSlots() { return this.itens.filter(p => p.slot == SlotEnum.ExtraSlot); }
 
   helmetSugerido: Item | undefined;
   armorSugerida: Item | undefined;
@@ -212,6 +242,9 @@ export class AppComponent implements OnInit {
   bootsSugerida: Item | undefined;
   shieldSugerido: Item | undefined;
   shieldImbuimentSugerido: ProtecaoEnum[] = [];
+  amuletSugerido: Item | undefined;
+  ringSugerido: Item | undefined;
+  extraSlotSugerido: Item | undefined;
 
   limparSugestoes() {
     this.helmetSugerido = undefined;
@@ -223,6 +256,7 @@ export class AppComponent implements OnInit {
     this.shieldImbuimentSugerido = [];
   }
 
+  itemDefault: Item = new Item(-1, "", "", VocacaoEnum.Knight, SlotEnum.Armor, 0, false, [], 0);
   sugerirItens() {
     this.sugestaoDeItensAplicada = false;
 
@@ -230,80 +264,120 @@ export class AppComponent implements OnInit {
 
     this.limparSugestoes();
 
-    this.itens.filter(p => p.liberado && p.slot == SlotEnum.Helmet).forEach(helmet => {
+    this.changeDetector.detach();
+
+    let helmetsSelecionados = this.helmets.filter(p => p.selecionado);
+    let armorsSelecionados = this.armors.filter(p => p.selecionado);
+    let legsSelecionados = this.legs.filter(p => p.selecionado);
+    let bootsSelecionados = this.boots.filter(p => p.selecionado);
+    let shieldsSelecionados = this.shields.filter(p => p.selecionado);
+    let amuletsSelecionados = this.amulets.filter(p => p.selecionado);
+    let ringsSelecionados = this.rings.filter(p => p.selecionado);
+    let extrasSlotsSelecionados = this.extrasSlots.filter(p => p.selecionado);
+
+    if (helmetsSelecionados.length == 0) helmetsSelecionados.push(this.itemDefault);
+    if (armorsSelecionados.length == 0) armorsSelecionados.push(this.itemDefault);
+    if (legsSelecionados.length == 0) legsSelecionados.push(this.itemDefault);
+    if (bootsSelecionados.length == 0) bootsSelecionados.push(this.itemDefault);
+    if (shieldsSelecionados.length == 0) shieldsSelecionados.push(this.itemDefault);
+    if (amuletsSelecionados.length == 0) amuletsSelecionados.push(this.itemDefault);
+    if (ringsSelecionados.length == 0) ringsSelecionados.push(this.itemDefault);
+    if (extrasSlotsSelecionados.length == 0) extrasSlotsSelecionados.push(this.itemDefault);
+
+    helmetsSelecionados.forEach(helmet => {
       let protecoesHelmet = this.obterProtecoesDoItem(helmet);
 
-      this.itens.filter(p => p.liberado && p.slot == SlotEnum.Armor).forEach(armor => {
+      armorsSelecionados.forEach(armor => {
         let protecoesArmor = this.obterProtecoesDoItem(armor);
 
-        this.itens.filter(p => p.liberado && p.slot == SlotEnum.Legs).forEach(legs => {
+        legsSelecionados.forEach(legs => {
           let protecoesLegs = this.obterProtecoesDoItem(legs);
 
-          this.itens.filter(p => p.liberado && p.slot == SlotEnum.Boots).forEach(boots => {
+          bootsSelecionados.forEach(boots => {
             let protecoesBoots = this.obterProtecoesDoItem(boots);
 
-            this.itens.filter(p => p.liberado && p.slot == SlotEnum.ShieldOrSpellbookOrQuiver).forEach(shield => {
+            shieldsSelecionados.forEach(shield => {
               let protecoesShield = this.obterProtecoesDoItem(shield);
 
-              let imbuimentsArmor = this.obterProtecoesDoItemViaImbuiments(armor);
-              if (!imbuimentsArmor || imbuimentsArmor.length == 0) {
-                imbuimentsArmor = [];
-                imbuimentsArmor.push({ protecao: ProtecaoEnum.Physical, valorProtecao: 0 });
-              }
+              amuletsSelecionados.forEach(amulet => {
+                let protecoesAmulet = this.obterProtecoesDoItem(amulet);
 
-              imbuimentsArmor.forEach(imbuiArmor => {
+                ringsSelecionados.forEach(ring => {
+                  let protecoesRing = this.obterProtecoesDoItem(ring);
 
-                let imbuimentsShield = this.obterProtecoesDoItemViaImbuiments(shield);
-                if (!imbuimentsShield || imbuimentsShield.length == 0) {
-                  imbuimentsShield = [];
-                  imbuimentsShield.push({ protecao: ProtecaoEnum.Physical, valorProtecao: 0 });
-                }
+                  extrasSlotsSelecionados.forEach(extraSlot => {
+                    let protecoesExtraSlot = this.obterProtecoesDoItem(extraSlot);
 
-                imbuimentsShield.forEach(imbuiShield => {
-
-                  this.protecaoSugestao_Physical = 0;
-                  this.protecaoSugestao_Fire = 0;
-                  this.protecaoSugestao_Earth = 0;
-                  this.protecaoSugestao_Energy = 0;
-                  this.protecaoSugestao_Ice = 0;
-                  this.protecaoSugestao_Holy = 0;
-                  this.protecaoSugestao_Death = 0;
-
-                  this.aplicarProtecaoDoItem(protecoesHelmet);
-                  this.aplicarProtecaoDoItem(protecoesArmor);
-                  this.aplicarProtecaoDoItem([imbuiArmor]);
-                  this.aplicarProtecaoDoItem([imbuiShield]);
-                  this.aplicarProtecaoDoItem(protecoesLegs);
-                  this.aplicarProtecaoDoItem(protecoesBoots);
-                  this.aplicarProtecaoDoItem(protecoesShield);
-
-                  this.calcular(false);
-
-                  if (maiorDiminuicaoDeDano == undefined) {
-                    maiorDiminuicaoDeDano = (this.danoAtual_Total - this.danoPossivel_Total);
-                    this.helmetSugerido = helmet;
-                    this.armorSugerida = armor;
-                    this.legsSugerida = legs;
-                    this.bootsSugerida = boots;
-                    this.shieldSugerido = shield;
-                    this.armorImbuimentSugerido = (imbuiArmor?.protecao ?? false) ? [imbuiArmor?.protecao] : [];
-                    this.shieldImbuimentSugerido = (imbuiShield?.protecao ?? false) ? [imbuiShield?.protecao] : [];
-                  } else {
-                    if ((this.danoAtual_Total - this.danoPossivel_Total) > maiorDiminuicaoDeDano) {
-                      console.log(maiorDiminuicaoDeDano)
-                      maiorDiminuicaoDeDano = (this.danoAtual_Total - this.danoPossivel_Total);
-                      this.helmetSugerido = helmet;
-                      this.armorSugerida = armor;
-                      this.legsSugerida = legs;
-                      this.bootsSugerida = boots;
-                      this.shieldSugerido = shield;
-                      this.armorImbuimentSugerido = imbuiArmor ? [imbuiArmor?.protecao] : [];
-                      this.shieldImbuimentSugerido =  (imbuiShield?.protecao ?? false) ? [imbuiShield?.protecao] : [];
+                    let imbuimentsArmor = this.obterProtecoesDoItemViaImbuiments(armor);
+                    if (!imbuimentsArmor || imbuimentsArmor.length == 0) {
+                      imbuimentsArmor = [];
+                      imbuimentsArmor.push({ protecao: ProtecaoEnum.Physical, valorProtecao: 0 });
                     }
-                  }
-                });
-              });
 
+                    imbuimentsArmor.forEach(imbuiArmor => {
+
+                      let imbuimentsShield = this.obterProtecoesDoItemViaImbuiments(shield);
+                      if (!imbuimentsShield || imbuimentsShield.length == 0) {
+                        imbuimentsShield = [];
+                        imbuimentsShield.push({ protecao: ProtecaoEnum.Physical, valorProtecao: 0 });
+                      }
+
+                      imbuimentsShield.forEach(imbuiShield => {
+
+                        this.protecaoSugestao_Physical = 0;
+                        this.protecaoSugestao_Fire = 0;
+                        this.protecaoSugestao_Earth = 0;
+                        this.protecaoSugestao_Energy = 0;
+                        this.protecaoSugestao_Ice = 0;
+                        this.protecaoSugestao_Holy = 0;
+                        this.protecaoSugestao_Death = 0;
+
+                        this.aplicarProtecaoDoItem(protecoesHelmet);
+                        this.aplicarProtecaoDoItem(protecoesArmor);
+                        this.aplicarProtecaoDoItem([imbuiArmor]);
+                        this.aplicarProtecaoDoItem([imbuiShield]);
+                        this.aplicarProtecaoDoItem(protecoesLegs);
+                        this.aplicarProtecaoDoItem(protecoesBoots);
+                        this.aplicarProtecaoDoItem(protecoesShield);
+                        this.aplicarProtecaoDoItem(protecoesAmulet);
+                        this.aplicarProtecaoDoItem(protecoesRing);
+                        this.aplicarProtecaoDoItem(protecoesExtraSlot);
+
+                        this.calcular(false);
+
+                        if (maiorDiminuicaoDeDano == undefined) {
+                          maiorDiminuicaoDeDano = (this.danoAtual_Total - this.danoPossivel_Total);
+                          this.helmetSugerido = helmet;
+                          this.armorSugerida = armor;
+                          this.legsSugerida = legs;
+                          this.bootsSugerida = boots;
+                          this.shieldSugerido = shield;
+                          this.armorImbuimentSugerido = (imbuiArmor?.protecao ?? false) ? [imbuiArmor?.protecao] : [];
+                          this.shieldImbuimentSugerido = (imbuiShield?.protecao ?? false) ? [imbuiShield?.protecao] : [];
+                          this.amuletSugerido = amulet;
+                          this.ringSugerido = ring;
+                          this.extraSlotSugerido = extraSlot;
+                        } else {
+                          if ((this.danoAtual_Total - this.danoPossivel_Total) > maiorDiminuicaoDeDano) {
+                            maiorDiminuicaoDeDano = (this.danoAtual_Total - this.danoPossivel_Total);
+                            this.helmetSugerido = helmet;
+                            this.armorSugerida = armor;
+                            this.legsSugerida = legs;
+                            this.bootsSugerida = boots;
+                            this.shieldSugerido = shield;
+                            this.armorImbuimentSugerido = imbuiArmor ? [imbuiArmor?.protecao] : [];
+                            this.shieldImbuimentSugerido = (imbuiShield?.protecao ?? false) ? [imbuiShield?.protecao] : [];
+                            this.amuletSugerido = amulet;
+                            this.ringSugerido = ring;
+                            this.extraSlotSugerido = extraSlot;
+                          }
+                        }
+                      });
+                    });
+
+                  })
+                })
+              })
             })
           })
         })
@@ -325,19 +399,15 @@ export class AppComponent implements OnInit {
     if (this.bootsSugerida != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.bootsSugerida));
     if (this.shieldSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.shieldSugerido));
     if (this.shieldImbuimentSugerido != undefined) this.shieldImbuimentSugerido.forEach(imbui => this.aplicarProtecaoDoItem([{ protecao: imbui, valorProtecao: 15 }]))
+    if (this.amuletSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.amuletSugerido));
+    if (this.ringSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.ringSugerido));
+    if (this.extraSlotSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.extraSlotSugerido));
+    if (this.protecaoArvore_Fire) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Fire, valorProtecao: this.protecaoArvore_Fire }])
+    if (this.protecaoArvore_Energy) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Energy, valorProtecao: this.protecaoArvore_Energy }])
+    if (this.protecaoArvore_Ice) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Ice, valorProtecao: this.protecaoArvore_Ice }])
+    if (this.protecaoArvore_Earth) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Earth, valorProtecao: this.protecaoArvore_Earth }])
 
-    // sun catche
-    this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Fire, valorProtecao: 5 }])
-
-    // theurgic
-    this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Earth, valorProtecao: 14 }])
-    this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Physical, valorProtecao: 3 }])
-
-    // arcanomancer ring
-    this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Earth, valorProtecao: 4 }])
-    this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Fire, valorProtecao: 4 }])
-    this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Energy, valorProtecao: 4 }])
-    this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Ice, valorProtecao: 4 }])
+    this.changeDetector.reattach();
 
     this.protecaoSugestao_Physical = Math.round(this.protecaoSugestao_Physical);
     this.protecaoSugestao_Fire = Math.round(this.protecaoSugestao_Fire);
@@ -370,13 +440,13 @@ export class AppComponent implements OnInit {
 
   calcularProtecao(protecaoAtual: number, adicionarProtecao: number): number {
     const valorInicial = (100 - protecaoAtual);
-    //return Math.round(100 - (valorInicial - ((valorInicial * adicionarProtecao) / 100)))
-    return 100 - (valorInicial - ((valorInicial * adicionarProtecao) / 100))
+    return Math.round(100 - (valorInicial - ((valorInicial * adicionarProtecao) / 100)));
+    //return 100 - (valorInicial - ((valorInicial * adicionarProtecao) / 100))
   }
 
   obterDicionarioItemEProtecoesLiberados(slot: SlotEnum) {
     let dic: { item: Item, protecao: ProtecaoEnum, valorProtecao: number }[] = [];
-    this.itens.filter(p => p.liberado && p.slot == slot).forEach(item => {
+    this.itens.filter(p => p.selecionado && p.slot == slot).forEach(item => {
       item.protecoes?.forEach(p => {
         dic.push({ item, protecao: p.protecao, valorProtecao: p.percentual });
       })
@@ -384,15 +454,15 @@ export class AppComponent implements OnInit {
     return dic;
   }
 
-  obterProtecoesDoItem(item: Item) {
+  obterProtecoesDoItem(item: Item): { protecao: ProtecaoEnum, valorProtecao: number }[] {
     let dic: { protecao: ProtecaoEnum, valorProtecao: number }[] = [];
     item.protecoes?.forEach(p => {
       dic.push({ protecao: p.protecao, valorProtecao: p.percentual });
     });
     return dic;
   }
-  obterProtecoesDoItemViaImbuiments(item: Item) {
-    if (!item) return;
+  obterProtecoesDoItemViaImbuiments(item: Item): { protecao: ProtecaoEnum, valorProtecao: number }[] {
+    if (!item || (!item.selecionado ?? false)) return [];
 
     let dic: { protecao: ProtecaoEnum, valorProtecao: number }[] = [];
     if (item.imbuimentSlot > 0 && item.imbuiments) {

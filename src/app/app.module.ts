@@ -3,7 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxCurrencyDirective } from 'ngx-currency';
 import { registerLocaleData } from '@angular/common';
@@ -22,7 +22,8 @@ registerLocaleData(localePt, 'pt');
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    NgxCurrencyDirective
+    NgxCurrencyDirective,
+    NgbTooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]
