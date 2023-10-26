@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImbuimentProtecaoEnum, Item, Protecao, ProtecaoEnum, SlotEnum, VocacaoEnum } from './item.model';
 import { Sorcerer } from './sorcerer.service';
+import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-root',
@@ -31,6 +33,8 @@ export class AppComponent implements OnInit {
     ogre rowdy 64,932 (4.5%)`;
 
   protecaoAtual_Physical: number = 9;
+  protecaoAtual_LifeDrain: number = 0;
+  protecaoAtual_ManaDrain: number = 0;
   protecaoAtual_Fire: number = 26;
   protecaoAtual_Earth: number = 40;
   protecaoAtual_Energy: number = 4;
@@ -39,6 +43,8 @@ export class AppComponent implements OnInit {
   protecaoAtual_Death: number = 21;
 
   danoAtual_Physical: number = 0;
+  danoAtual_LifeDrain: number = 0;
+  danoAtual_ManaDrain: number = 0;
   danoAtual_Fire: number = 0;
   danoAtual_Earth: number = 0;
   danoAtual_Energy: number = 0;
@@ -48,6 +54,8 @@ export class AppComponent implements OnInit {
   danoAtual_Total: number = 0;
 
   danoReal_Physical: number = 0;
+  danoReal_LifeDrain: number = 0;
+  danoReal_ManaDrain: number = 0;
   danoReal_Fire: number = 0;
   danoReal_Earth: number = 0;
   danoReal_Energy: number = 0;
@@ -57,6 +65,8 @@ export class AppComponent implements OnInit {
   danoReal_Total: number = 0;
 
   danoRealPercentual_Physical: number = 0;
+  danoRealPercentual_LifeDrain: number = 0;
+  danoRealPercentual_ManaDrain: number = 0;
   danoRealPercentual_Fire: number = 0;
   danoRealPercentual_Earth: number = 0;
   danoRealPercentual_Energy: number = 0;
@@ -65,6 +75,8 @@ export class AppComponent implements OnInit {
   danoRealPercentual_Death: number = 0;
 
   protecaoSugestao_Physical: number = 0;
+  protecaoSugestao_LifeDrain: number = 0;
+  protecaoSugestao_ManaDrain: number = 0;
   protecaoSugestao_Fire: number = 0;
   protecaoSugestao_Earth: number = 0;
   protecaoSugestao_Energy: number = 0;
@@ -73,6 +85,8 @@ export class AppComponent implements OnInit {
   protecaoSugestao_Death: number = 0;
 
   danoPossivel_Physical: number = 0;
+  danoPossivel_LifeDrain: number = 0;
+  danoPossivel_ManaDrain: number = 0;
   danoPossivel_Fire: number = 0;
   danoPossivel_Earth: number = 0;
   danoPossivel_Energy: number = 0;
@@ -82,6 +96,8 @@ export class AppComponent implements OnInit {
   danoPossivel_Total: number = 0;
 
   danoPossivelPercentual_Physical: number = 0;
+  danoPossivelPercentual_LifeDrain: number = 0;
+  danoPossivelPercentual_ManaDrain: number = 0;
   danoPossivelPercentual_Fire: number = 0;
   danoPossivelPercentual_Earth: number = 0;
   danoPossivelPercentual_Energy: number = 0;
@@ -105,7 +121,8 @@ export class AppComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private changeDetector: ChangeDetectorRef) {
+    private changeDetector: ChangeDetectorRef,
+    private toastr: ToastrService) {
 
   }
 
@@ -213,6 +230,8 @@ export class AppComponent implements OnInit {
   definirVocacao(vocacao: VocacaoEnum) {
     this.vocacaoSelecionada = vocacao;
 
+    this.limparSugestoes();
+
     this.carregarItens(vocacao);
   }
 
@@ -226,6 +245,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+  get hands() { return this.itens.filter(p => p.slot == SlotEnum.Hand); }
   get helmets() { return this.itens.filter(p => p.slot == SlotEnum.Helmet); }
   get armors() { return this.itens.filter(p => p.slot == SlotEnum.Armor); }
   get legs() { return this.itens.filter(p => p.slot == SlotEnum.Legs); }
@@ -235,6 +255,7 @@ export class AppComponent implements OnInit {
   get rings() { return this.itens.filter(p => p.slot == SlotEnum.Ring); }
   get extrasSlots() { return this.itens.filter(p => p.slot == SlotEnum.ExtraSlot); }
 
+  handSugerido: Item | undefined = undefined;
   helmetSugerido: Item | undefined;
   armorSugerida: Item | undefined;
   armorImbuimentSugerido: ProtecaoEnum[] = [];
@@ -247,6 +268,7 @@ export class AppComponent implements OnInit {
   extraSlotSugerido: Item | undefined;
 
   limparSugestoes() {
+    this.handSugerido = undefined;
     this.helmetSugerido = undefined;
     this.armorSugerida = undefined;
     this.armorImbuimentSugerido = [];
@@ -254,6 +276,9 @@ export class AppComponent implements OnInit {
     this.bootsSugerida = undefined;
     this.shieldSugerido = undefined;
     this.shieldImbuimentSugerido = [];
+    this.amuletSugerido = undefined;
+    this.ringSugerido = undefined;
+    this.extraSlotSugerido = undefined;
   }
 
   itemDefault: Item = new Item(-1, "", "", VocacaoEnum.Knight, SlotEnum.Armor, 0, false, [], 0);
@@ -284,28 +309,38 @@ export class AppComponent implements OnInit {
     if (ringsSelecionados.length == 0) ringsSelecionados.push(this.itemDefault);
     if (extrasSlotsSelecionados.length == 0) extrasSlotsSelecionados.push(this.itemDefault);
 
+    const maximoDeCombinacoes = 200_000;
+
+    let combinacoesPossiveis = 1;
     helmetsSelecionados.forEach(helmet => {
       let protecoesHelmet = this.obterProtecoesDoItem(helmet);
 
       armorsSelecionados.forEach(armor => {
+        if (combinacoesPossiveis > maximoDeCombinacoes) return;
         let protecoesArmor = this.obterProtecoesDoItem(armor);
 
         legsSelecionados.forEach(legs => {
+          if (combinacoesPossiveis > maximoDeCombinacoes) return;
           let protecoesLegs = this.obterProtecoesDoItem(legs);
 
           bootsSelecionados.forEach(boots => {
+            if (combinacoesPossiveis > maximoDeCombinacoes) return;
             let protecoesBoots = this.obterProtecoesDoItem(boots);
 
             shieldsSelecionados.forEach(shield => {
+              if (combinacoesPossiveis > maximoDeCombinacoes) return;
               let protecoesShield = this.obterProtecoesDoItem(shield);
 
               amuletsSelecionados.forEach(amulet => {
+                if (combinacoesPossiveis > maximoDeCombinacoes) return;
                 let protecoesAmulet = this.obterProtecoesDoItem(amulet);
 
                 ringsSelecionados.forEach(ring => {
+                  if (combinacoesPossiveis > maximoDeCombinacoes) return;
                   let protecoesRing = this.obterProtecoesDoItem(ring);
 
                   extrasSlotsSelecionados.forEach(extraSlot => {
+                    if (combinacoesPossiveis > maximoDeCombinacoes) return;
                     let protecoesExtraSlot = this.obterProtecoesDoItem(extraSlot);
 
                     let imbuimentsArmor = this.obterProtecoesDoItemViaImbuiments(armor);
@@ -323,7 +358,10 @@ export class AppComponent implements OnInit {
                       }
 
                       imbuimentsShield.forEach(imbuiShield => {
+                        combinacoesPossiveis++;
 
+                        if (combinacoesPossiveis > maximoDeCombinacoes) return;
+                        
                         this.protecaoSugestao_Physical = 0;
                         this.protecaoSugestao_Fire = 0;
                         this.protecaoSugestao_Earth = 0;
@@ -384,6 +422,11 @@ export class AppComponent implements OnInit {
       })
     })
 
+    if (combinacoesPossiveis > maximoDeCombinacoes) {
+      this.toastr.error(`Foram encontradas mais de ${maximoDeCombinacoes} combinações, por favor diminua a opção de itens.`);
+      return;
+    }
+
     this.protecaoSugestao_Physical = 0;
     this.protecaoSugestao_Fire = 0;
     this.protecaoSugestao_Earth = 0;
@@ -406,6 +449,7 @@ export class AppComponent implements OnInit {
     if (this.protecaoArvore_Energy) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Energy, valorProtecao: this.protecaoArvore_Energy }])
     if (this.protecaoArvore_Ice) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Ice, valorProtecao: this.protecaoArvore_Ice }])
     if (this.protecaoArvore_Earth) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Earth, valorProtecao: this.protecaoArvore_Earth }])
+    if (this.handSugerido != undefined && (this.handSugerido?.id ?? false)) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.handSugerido));
 
     this.changeDetector.reattach();
 
@@ -420,6 +464,8 @@ export class AppComponent implements OnInit {
     this.calcular(false);
 
     this.sugestaoDeItensAplicada = true;
+
+    this.toastr.success(`Dentre as mais de ${combinacoesPossiveis} combinações possíveis, encontramos a melhor para você.`);
   }
 
   aplicarProtecaoDoItem(protecoes: { protecao: ProtecaoEnum, valorProtecao: number }[]) {
@@ -440,8 +486,8 @@ export class AppComponent implements OnInit {
 
   calcularProtecao(protecaoAtual: number, adicionarProtecao: number): number {
     const valorInicial = (100 - protecaoAtual);
-    return Math.round(100 - (valorInicial - ((valorInicial * adicionarProtecao) / 100)));
-    //return 100 - (valorInicial - ((valorInicial * adicionarProtecao) / 100))
+    //return Math.round(100 - (valorInicial - ((valorInicial * adicionarProtecao) / 100)));
+    return 100 - (valorInicial - ((valorInicial * adicionarProtecao) / 100))
   }
 
   obterDicionarioItemEProtecoesLiberados(slot: SlotEnum) {

@@ -27,6 +27,7 @@ export enum ImbuimentProtecaoEnum {
 }
 
 export enum SlotEnum {
+  Hand,
   Helmet,
   Armor,
   Legs,

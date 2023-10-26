@@ -15,7 +15,7 @@
     <div class="row">
       <div class="form-group col-12 col-md-6 col-lg-4 mb-4">
         <label class="control-label" for="damage">Damage input</label>
-        <textarea class="form-control h-100" style="font-size: .7rem" id="damage" rows="10" [(ngModel)]="damageInput"
+        <textarea class="form-control h-100" style="font-size: .75rem" id="damage" rows="10" [(ngModel)]="damageInput"
           (ngModelChange)="calcular()"></textarea>
       </div>
 
@@ -27,6 +27,18 @@
             <input class="col-4 control text-center" type="text" currencyMask
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
               [(ngModel)]="protecaoAtual_Physical" (ngModelChange)="calcular()">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Life Drain</label>
+            <input class="col-4 control text-center" type="text" currencyMask
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [(ngModel)]="protecaoAtual_LifeDrain" (ngModelChange)="calcular()">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Mana Drain</label>
+            <input class="col-4 control text-center" type="text" currencyMask
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [(ngModel)]="protecaoAtual_ManaDrain" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Fire</label>
@@ -78,6 +90,22 @@
             <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="danoRealPercentual_Physical">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Life Drain</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_LifeDrain">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoRealPercentual_LifeDrain">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Mana Drain</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_ManaDrain">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoRealPercentual_ManaDrain">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Fire</label>
@@ -190,6 +218,18 @@
               [(ngModel)]="protecaoSugestao_Physical" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Life Drain</label>
+            <input class="col-4 control text-center" type="text" currencyMask
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [(ngModel)]="protecaoSugestao_LifeDrain" (ngModelChange)="calcular()">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Mana Drain</label>
+            <input class="col-4 control text-center" type="text" currencyMask
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [(ngModel)]="protecaoSugestao_ManaDrain" (ngModelChange)="calcular()">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Fire</label>
             <input class="col-4 control text-center" type="text" currencyMask
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
@@ -240,6 +280,26 @@
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="danoPossivelPercentual_Physical"
               [ngClass]="{'text-success': danoAtual_Physical > danoPossivel_Physical, 'text-danger': danoAtual_Physical < danoPossivel_Physical}">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Life Drain</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }"
+              [(ngModel)]="danoPossivel_LifeDrain">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoPossivelPercentual_LifeDrain"
+              [ngClass]="{'text-success': danoAtual_LifeDrain > danoPossivel_LifeDrain, 'text-danger': danoAtual_LifeDrain < danoPossivel_LifeDrain}">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Mana Drain</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }"
+              [(ngModel)]="danoPossivel_ManaDrain">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoPossivelPercentual_ManaDrain"
+              [ngClass]="{'text-success': danoAtual_ManaDrain > danoPossivel_ManaDrain, 'text-danger': danoAtual_ManaDrain < danoPossivel_ManaDrain}">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Fire</label>
@@ -338,9 +398,37 @@
       <hr />
 
       <ng-container *ngIf="vocacaoSelecionada">
+
+        <!-- Wands -->
+        <div class="form-group col-12 text-center">
+          <label class="control-label fs-6 mb-2 ms-5">
+            Wands <small style="font-size: .7rem;">(apenas wands que contem alguma proteção, marcar a que for usar, se for usar)</small>
+          </label>
+
+          <div class="d-flex flex-row flex-wrap justify-content-center mb-3">
+            <div class="form-check text-start mt-2 me-5">
+              <input class="form-check-input text-right" type="radio" name="hand" id="hand0"
+                style="cursor: pointer;" [(ngModel)]="handSugerido" [value]="undefined" checked>
+              <label class="form-check-label ms-1" for="hand0" style="cursor: pointer;">
+                Nenhuma
+              </label>
+            </div>
+            <div class="form-check text-start mt-2 me-5" *ngFor="let item of hands">
+              <input class="form-check-input text-right" type="radio" name="hand" id="hand{{item.id}}"
+                style="cursor: pointer;" [(ngModel)]="handSugerido" [value]="item">
+              <img [src]="item.url" style="cursor: pointer;" (click)="handSugerido = item">
+              <label class="form-check-label ms-1" for="hand{{item.id}}" style="cursor: pointer;">
+                {{item.descricao}}
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <hr />
+
+        <!-- Helmets -->
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
           <label class="control-label fs-6 mb-2 ms-5">Helmets</label>
-
           <div class="row">
             <div class="form-check text-start mt-2" *ngFor="let item of helmets">
               <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
@@ -353,9 +441,9 @@
           </div>
         </div>
 
+        <!-- Armors -->
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
           <label class="control-label fs-6 mb-2 ms-5">Armors</label>
-
           <div class="row">
             <div class="form-check text-start mt-2" *ngFor="let item of armors">
               <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
@@ -368,9 +456,9 @@
           </div>
         </div>
 
+        <!-- Legs -->
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
           <label class="control-label fs-6 mb-2 ms-5">Legs</label>
-
           <div class="row">
             <div class="form-check text-start mt-2" *ngFor="let item of legs">
               <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
@@ -383,9 +471,9 @@
           </div>
         </div>
 
+        <!-- Boots -->
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
           <label class="control-label fs-6 mb-2 ms-5">Boots</label>
-
           <div class="row">
             <div class="form-check text-start mt-2" *ngFor="let item of boots">
               <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
@@ -398,9 +486,9 @@
           </div>
         </div>
 
+        <!-- Shields / Spellbooks / Quivers -->
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
           <label class="control-label fs-6 mb-2 ms-5">Spellbooks</label>
-
           <div class="row">
             <div class="form-check text-start mt-2" *ngFor="let item of shields">
               <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
@@ -413,9 +501,9 @@
           </div>
         </div>
 
+        <!-- Amulets -->
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-          <label class="control-label fs-6 mb-2 ms-5">Amuletos</label>
-
+          <label class="control-label fs-6 mb-2 ms-5">Amulets</label>
           <div class="d-flex flex-row flex-wrap gap-2">
             <div class="form-check text-start mt-2 me-4" *ngFor="let item of amulets" ngbTooltip="{{item.descricao}}">
               <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
@@ -425,9 +513,9 @@
           </div>
         </div>
 
+        <!-- Rings -->
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
           <label class="control-label fs-6 mb-2 ms-5">Rings</label>
-
           <div class="row">
             <div class="form-check text-start mt-2" *ngFor="let item of rings">
               <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
@@ -440,9 +528,9 @@
           </div>
         </div>
 
+        <!-- Extra Slots -->
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
           <label class="control-label fs-6 mb-2 ms-5">Extra Slots</label>
-
           <div class="row">
             <div class="form-check text-start mt-2" *ngFor="let item of extrasSlots">
               <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
@@ -458,7 +546,7 @@
         <div class="form-group col-12 text-center">
           <label class="control-label fs-6 mb-2 ms-5">Proteção Árvore do Destino (Skill)</label>
 
-          <div class="d-flex flex-row flex-wrap gap-2" style="font-size: .8rem;">
+          <div class="d-flex flex-row flex-wrap justify-content-center gap-2" style="font-size: .8rem;">
 
             <!-- Árvore Proteção Fire -->
             <div class="d-flex flex-row align-items-center">
@@ -466,21 +554,21 @@
               <div class="d-flex flex-column ms-1">
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvFire" id="arvFire0"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Fire" value="0" checked>
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Fire" [value]="0" checked>
                   <label class="form-check-label ms-1" for="arvFire0" style="cursor: pointer;">
                     Nenhum
                   </label>
                 </div>
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvFire" id="arvFire1"
-                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Fire" value="2">
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Fire" value="2">
                   <label class="form-check-label ms-1" for="arvFire1" style="cursor: pointer;">
                     Nível 1 (+2%)
                   </label>
                 </div>
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvFire" id="arvFire2"
-                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Fire" value="4">
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Fire" value="4">
                   <label class="form-check-label ms-1" for="arvFire2" style="cursor: pointer;">
                     Nível 2 (+4%)
                   </label>
@@ -488,27 +576,27 @@
               </div>
             </div>
 
-             <!-- Árvore Proteção Energy -->
-             <div class="d-flex flex-row align-items-center">
+            <!-- Árvore Proteção Energy -->
+            <div class="d-flex flex-row align-items-center">
               <span class="icon-protecao energy" style="cursor: pointer;"></span>
               <div class="d-flex flex-column ms-1">
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvEnergy" id="arvEnergy0"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Energy" value="0" checked>
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Energy" [value]="0" checked>
                   <label class="form-check-label ms-1" for="arvEnergy0" style="cursor: pointer;">
                     Nenhum
                   </label>
                 </div>
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvEnergy" id="arvEnergy1"
-                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Energy" value="2">
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Energy" value="2">
                   <label class="form-check-label ms-1" for="arvEnergy1" style="cursor: pointer;">
                     Nível 1 (+2%)
                   </label>
                 </div>
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvEnergy" id="arvEnergy2"
-                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Energy" value="4">
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Energy" value="4">
                   <label class="form-check-label ms-1" for="arvEnergy2" style="cursor: pointer;">
                     Nível 2 (+4%)
                   </label>
@@ -516,27 +604,27 @@
               </div>
             </div>
 
-             <!-- Árvore Proteção Ice -->
-             <div class="d-flex flex-row align-items-center">
+            <!-- Árvore Proteção Ice -->
+            <div class="d-flex flex-row align-items-center">
               <span class="icon-protecao ice" style="cursor: pointer;"></span>
               <div class="d-flex flex-column ms-1">
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvIce" id="arvIce0"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Ice" value="0" checked>
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Ice" [value]="0" checked>
                   <label class="form-check-label ms-1" for="arvIce0" style="cursor: pointer;">
                     Nenhum
                   </label>
                 </div>
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvIce" id="arvIce1"
-                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Ice" value="2">
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Ice" value="2">
                   <label class="form-check-label ms-1" for="arvIce1" style="cursor: pointer;">
                     Nível 1 (+2%)
                   </label>
                 </div>
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvIce" id="arvIce2"
-                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Ice" value="4">
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Ice" value="4">
                   <label class="form-check-label ms-1" for="arvIce2" style="cursor: pointer;">
                     Nível 2 (+4%)
                   </label>
@@ -544,27 +632,27 @@
               </div>
             </div>
 
-             <!-- Árvore Proteção Earth -->
-             <div class="d-flex flex-row align-items-center">
+            <!-- Árvore Proteção Earth -->
+            <div class="d-flex flex-row align-items-center">
               <span class="icon-protecao earth" style="cursor: pointer;"></span>
               <div class="d-flex flex-column ms-1">
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvEarth" id="arvEarth0"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Earth" value="0" checked>
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Earth" [value]="0" checked>
                   <label class="form-check-label ms-1" for="arvEarth0" style="cursor: pointer;">
                     Nenhum
                   </label>
                 </div>
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvEarth" id="arvEarth1"
-                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Earth" value="2">
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Earth" value="2">
                   <label class="form-check-label ms-1" for="arvEarth1" style="cursor: pointer;">
                     Nível 1 (+2%)
                   </label>
                 </div>
                 <div class="form-check text-start mt-2 me-5">
                   <input class="form-check-input text-right" type="radio" name="arvEarth" id="arvEarth2"
-                    style="cursor: pointer;"  [(ngModel)]="protecaoArvore_Earth" value="4">
+                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Earth" value="4">
                   <label class="form-check-label ms-1" for="arvEarth2" style="cursor: pointer;">
                     Nível 2 (+4%)
                   </label>

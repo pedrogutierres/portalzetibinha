@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +10,7 @@ import { NgxCurrencyDirective } from 'ngx-currency';
 import { registerLocaleData } from '@angular/common';
 
 import localePt from '@angular/common/locales/pt';
+import { ToastrModule } from 'ngx-toastr';
 
 registerLocaleData(localePt, 'pt');
 
@@ -23,7 +25,9 @@ registerLocaleData(localePt, 'pt');
     ReactiveFormsModule,
     NgbModule,
     NgxCurrencyDirective,
-    NgbTooltipModule
+    NgbTooltipModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
