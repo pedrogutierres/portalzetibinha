@@ -15,32 +15,17 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   title = 'Portal Ze Tibinha';
 
-  damageInput: string = `Received Damage
-  Total: 1,449,865
-  Max-DPS: 2,356
-  Damage Types
-    Physical 681,681 (47.0%)
-    Earth 387,830 (26.7%)
-    Fire 238,239 (16.4%)
-    Holy 74,613 (5.1%)
-    Energy 67,192 (4.6%)
-    Death 310 (0.0%)
-  Damage Sources
-    adult goanna 496,794 (34.3%)
-    feral sphinx 335,283 (23.1%)
-    young goanna 303,700 (20.9%)
-    manticore 74,615 (5.1%)
-    ogre rowdy 64,932 (4.5%)`;
+  damageInput: string = ``;
 
-  protecaoAtual_Physical: number = 9;
+  protecaoAtual_Physical: number = 0;
   protecaoAtual_LifeDrain: number = 0;
   protecaoAtual_ManaDrain: number = 0;
-  protecaoAtual_Fire: number = 26;
-  protecaoAtual_Earth: number = 40;
-  protecaoAtual_Energy: number = 4;
+  protecaoAtual_Fire: number = 0;
+  protecaoAtual_Earth: number = 0;
+  protecaoAtual_Energy: number = 0;
   protecaoAtual_Ice: number = 0;
   protecaoAtual_Holy: number = 0;
-  protecaoAtual_Death: number = 21;
+  protecaoAtual_Death: number = 0;
 
   danoAtual_Physical: number = 0;
   danoAtual_LifeDrain: number = 0;
