@@ -120,6 +120,10 @@ export class VocacaoItens {
     itens.push(new Item(id++, "Zaoan Legs", "https://www.tibiawiki.com.br/images/1/1a/Zaoan_Legs.gif", this.allVocations(), SlotEnum.Legs, 0, false, [new Protecao(ProtecaoEnum.Physical, 2)], 0));
     itens.push(new Item(id++, "Icy Culottes", "https://www.tibiawiki.com.br/images/2/25/Icy_Culottes.gif", [VocacaoEnum.Druid, VocacaoEnum.Sorcerer], SlotEnum.Legs, 0, false, [new Protecao(ProtecaoEnum.Ice, 8)], 0));
     itens.push(new Item(id++, "Dwarven Legs", "https://www.tibiawiki.com.br/images/3/34/Dwarven_Legs.gif", this.allVocations(), SlotEnum.Legs, 0, false, [new Protecao(ProtecaoEnum.Physical, 3)], 0));
+    itens.push(new Item(id++, "Magma Legs", "https://www.tibiawiki.com.br/images/3/3d/Magma_Legs.gif", [VocacaoEnum.Druid, VocacaoEnum.Sorcerer], SlotEnum.Legs, 0, false, [new Protecao(ProtecaoEnum.Fire, 6),new Protecao(ProtecaoEnum.Ice, -6)], 0));
+    itens.push(new Item(id++, "Terra Legs", "https://www.tibiawiki.com.br/images/4/43/Terra_Legs.gif", [VocacaoEnum.Druid, VocacaoEnum.Sorcerer], SlotEnum.Legs, 0, false, [new Protecao(ProtecaoEnum.Earth, 6),new Protecao(ProtecaoEnum.Fire, -6)], 0));
+    itens.push(new Item(id++, "Glacier Kilt", "https://www.tibiawiki.com.br/images/e/e7/Glacier_Kilt.gif", [VocacaoEnum.Druid, VocacaoEnum.Sorcerer], SlotEnum.Legs, 0, false, [new Protecao(ProtecaoEnum.Ice, 6),new Protecao(ProtecaoEnum.Energy, -6)], 0));
+    itens.push(new Item(id++, "Lightning Legs", "https://www.tibiawiki.com.br/images/a/a2/Lightning_Legs.gif", [VocacaoEnum.Druid, VocacaoEnum.Sorcerer], SlotEnum.Legs, 0, false, [new Protecao(ProtecaoEnum.Energy, 6),new Protecao(ProtecaoEnum.Earth, -6)], 0));
 
     // Boots
     itens.push(new Item(id++, "Sanguine Galoshes", "https://www.tibiawiki.com.br/images/5/55/Sanguine_Galoshes.gif", [VocacaoEnum.Druid], SlotEnum.Boots, 0, false, [new Protecao(ProtecaoEnum.Physical, 2), new Protecao(ProtecaoEnum.Fire, 8)], 0));
