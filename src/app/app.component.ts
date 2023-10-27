@@ -112,7 +112,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.calcular();
   }
 
   ngAfterViewInit(): void {
@@ -132,6 +131,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.protecaoAtual_Holy = protecoesSalvas.holy;
       this.protecaoAtual_Death = protecoesSalvas.death;
     }
+
+    if (this.damageInput != undefined && this.damageInput != null)
+      this.calcular();
   }
 
   calcular(resetarSugestao: boolean = true) {
