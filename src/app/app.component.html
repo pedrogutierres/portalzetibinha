@@ -1,4 +1,4 @@
-<div class="main-container p-2" >
+<div class="main-container p-2">
   <h2 #scrollMe>Cálculo de danos (recebidos)</h2>
   <small style="font-size: .75rem; line-height: normal;">
     Este sistema busca te ajudar a encontrar a melhor combinação de itens para aumentar/aprimorar a sua defesa de danos
@@ -394,6 +394,11 @@
 
       <small *ngIf="vocacaoSelecionada">
         Selecione os itens que tem disponível para utilizar na hunt desejada (conforme damage input aplicado)
+        <br />
+        <small style="font-size: .7rem;">
+          Aqui o foco é listar apenas itens que poderão dar proteções extras, pode ser que o item que você usará na hunt
+          não esteja presente na lista
+        </small>
       </small>
       <hr />
 
@@ -402,8 +407,33 @@
         <!-- Wands -->
         <div class="form-group col-12 text-center">
           <label class="control-label fs-6 mb-2 ms-5">
-            Wands <small style="font-size: .7rem;">(apenas wands que contem alguma proteção, marcar a que for usar, se
-              for usar)</small>
+            <span [ngSwitch]="vocacaoSelecionada">
+              <p *ngSwitchCase="1">
+                Armas
+                <small style="font-size: .7rem;">
+                  (apenas armas que contem alguma proteção, marcar a que for usar apenas se for usar)
+                </small>
+              </p>
+              <p *ngSwitchCase="2">
+                Bows / Crossbows
+                <small style="font-size: .7rem;">
+                  (apenas bows/crossbows que contem alguma proteção, marcar a que for usar apenas se for usar)
+                </small>
+              </p>
+              <p *ngSwitchCase="3">
+                Rods
+                <small style="font-size: .7rem;">
+                  (apenas rods que contem alguma proteção, marcar a que for usar apenas se for usar)
+                </small>
+              </p>
+              <p *ngSwitchDefault>
+                Wands
+                <small style="font-size: .7rem;">
+                  (apenas wands que contem alguma proteção, marcar a que for usar apenas se for usar)
+                </small>
+              </p>
+            </span>
+
           </label>
 
           <div class="d-flex flex-row flex-wrap justify-content-center mb-3">
@@ -489,7 +519,20 @@
 
         <!-- Shields / Spellbooks / Quivers -->
         <div class="form-group col-12 col-md-4 col-lg-3 mb-4 text-start">
-          <label class="control-label fs-6 mb-2 ms-5">Spellbooks</label>
+          <label class="control-label fs-6 mb-2 ms-5">
+            <span [ngSwitch]="vocacaoSelecionada">
+              <p *ngSwitchCase="1">
+                Shields
+              </p>
+              <p *ngSwitchCase="2">
+                Quivers
+              </p>
+              <p *ngSwitchDefault>
+                Spellbooks
+              </p>
+            </span>
+
+          </label>
           <div class="row">
             <div class="form-check text-start mt-2" *ngFor="let item of shields">
               <input class="form-check-input text-right" type="checkbox" [(ngModel)]="item.selecionado"
@@ -674,7 +717,7 @@
 
           <!-- Hand Selecionada -->
           <div class="form-group col-12 d-flex justify-content-center text-start" *ngIf="handSugerido">
-            <div class="d-flex flex-row align-items-center" >
+            <div class="d-flex flex-row align-items-center">
               <img [src]="handSugerido.url">
               <div class="d-flex flex-column ms-1">
                 <label class="control-label" style="cursor: pointer;">

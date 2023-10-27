@@ -73,7 +73,7 @@ export class Item {
     public id: number,
     public descricao: string,
     public url: string,
-    public vocacao: VocacaoEnum,
+    public vocacao: VocacaoEnum[],
     public slot: SlotEnum,
     public pontos: number,
     public selecionado: boolean,

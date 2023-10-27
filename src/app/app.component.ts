@@ -2,9 +2,9 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewCh
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ImbuimentProtecaoEnum, Item, Protecao, ProtecaoEnum, SlotEnum, VocacaoEnum } from './item.model';
-import { Sorcerer } from './sorcerer.service';
 import { NgbToast } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import { VocacaoItens } from './vocacao.service';
 
 @Component({
   selector: 'app-root',
@@ -243,12 +243,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   carregarItens(vocacao: VocacaoEnum) {
     this.itens = [];
-
-    switch (vocacao) {
-      case VocacaoEnum.Sorcerer:
-        this.itens.push(...Sorcerer.itensSorcerer())
-        break;
-    }
+    this.itens = VocacaoItens.itens().filter(p => p.vocacao.some(v => v == vocacao));
   }
 
   get hands() { return this.itens.filter(p => p.slot == SlotEnum.Hand); }
@@ -286,7 +281,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.extraSlotSugerido = undefined;
   }
 
-  itemDefault: Item = new Item(-1, "", "", VocacaoEnum.Knight, SlotEnum.Armor, 0, false, [], 0);
+  itemDefault: Item = new Item(-1, "", "", [], SlotEnum.Armor, 0, false, [], 0);
   sugerirItens() {
     this.sugestaoDeItensAplicada = false;
 
