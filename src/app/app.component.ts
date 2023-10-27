@@ -488,11 +488,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.calculandoSugestaoDeItens = false;
 
     if (this.danoAtual_Total > this.danoPossivel_Total)
-      this.toastr.success(`Dentre as mais de ${combinacoesPossiveis} combinações analisadas, encontramos a melhor para você.`, "", { timeOut: 10_000 });
+      this.toastr.success(`Dentre as ${combinacoesPossiveis} combinações analisadas, encontramos a melhor para você.`, "", { timeOut: 10_000 });
     else if (this.danoAtual_Total < this.danoPossivel_Total)
-      this.toastr.error(`Dentre as mais de ${combinacoesPossiveis} combinações analisadas, não encontramos melhorias possíveis.`, "", { timeOut: 10_000 });
+      this.toastr.error(`Dentre as ${combinacoesPossiveis} combinações analisadas, não encontramos melhorias possíveis.`, "", { timeOut: 10_000 });
     else
-      this.toastr.warning(`Dentre as mais de ${combinacoesPossiveis} combinações analisadas, não encontramos melhorias possíveis.`, "", { timeOut: 10_000 });
+      this.toastr.warning(`Dentre as ${combinacoesPossiveis} combinações analisadas, não encontramos melhorias possíveis.`, "", { timeOut: 10_000 });
   }
 
   salvarItensSelecionados(vocacao: VocacaoEnum, handId: number, itensId: number[], arvFire: number, arvEnergy: number, arvIce: number, arvEarth: number) {
