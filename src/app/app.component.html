@@ -4,7 +4,7 @@
     Este sistema busca te ajudar a encontrar a melhor combinação de itens para aumentar/aprimorar a sua defesa de danos
     na hunt<br />
     Para isto você deve (após finalizar a hunt) informar no Damage input o dano recebido, e preencher as colunas de
-    proteção atual (lembrando que deve a proteção real constante no inspect combat status do personagem)<br />
+    sua proteção atual (lembrando que deve ser a proteção real constante no inspect combat status do personagem)<br />
     Após isto, você mode ir modificando os seus itens para novas combinações de proteção, e preencher na sugestão, assim
     o sistema irá te mostrar o impacto positivo ou negativo da mudança
   </small>
@@ -398,6 +398,9 @@
         <small style="font-size: .7rem;">
           Aqui o foco é listar apenas itens que poderão dar proteções extras, pode ser que o item que você usará na hunt
           não esteja presente na lista
+          <br />
+          Selecione apenas itens de interesse para a hunt, como por um exemplo um item que não tenha bonus de skills pode
+          não ser bom para a hunt mesmo tendo uma proteção maior
         </small>
       </small>
       <hr />
@@ -709,7 +712,10 @@
         <hr />
         <div class="row">
           <div class="col mb-2">
-            <button class="btn" (click)="sugerirItens()">Sugerir melhores itens</button>
+            <button class="btn" (click)="sugerirItens()">
+              <i class="fas fa-spinner fa-spin" *ngIf="calculandoSugestaoDeItens"></i>
+              Sugerir melhores itens
+            </button>
           </div>
         </div>
 

@@ -266,8 +266,18 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.extraSlotSugerido = undefined;
   }
 
+  calculandoSugestaoDeItens: boolean = false;
+
+  greeting: Promise<string> | null = null;
+
   itemDefault: Item = new Item(-1, "", "", [], SlotEnum.Armor, 0, false, [], 0);
   sugerirItens() {
+    this.calculandoSugestaoDeItens = true;
+
+    setTimeout(() => this.sugerirItensAsync(), 300);
+  }
+  sugerirItensAsync() {
+
     this.sugestaoDeItensAplicada = false;
 
     let maiorDiminuicaoDeDano: number | undefined = undefined;
@@ -298,7 +308,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (ringsSelecionados.length == 0) ringsSelecionados.push(this.itemDefault);
     if (extrasSlotsSelecionados.length == 0) extrasSlotsSelecionados.push(this.itemDefault);
 
-    const maximoDeCombinacoes = 500_000;
+    const maximoDeCombinacoes = 1_000_000;
 
     let combinacoesPossiveis = 1;
     helmetsSelecionados.forEach(helmet => {
@@ -412,6 +422,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     })
 
     if (combinacoesPossiveis > maximoDeCombinacoes) {
+      this.calculandoSugestaoDeItens = false;
       this.toastr.error(`Foram encontradas mais de ${maximoDeCombinacoes} combinações, por favor diminua a opção de itens.`);
       return;
     }
@@ -453,6 +464,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.calcular(false);
 
     this.sugestaoDeItensAplicada = true;
+    this.calculandoSugestaoDeItens = false;
 
     if (this.danoAtual_Total > this.danoPossivel_Total)
       this.toastr.success(`Dentre as mais de ${combinacoesPossiveis} combinações analisadas, encontramos a melhor para você.`, "", { timeOut: 10_000 });
