@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ImbuimentProtecaoEnum, Item, Protecao, ProtecaoEnum, SlotEnum, VocacaoEnum } from './item.model';
 import { ToastrService } from 'ngx-toastr';
 import { VocacaoItens } from './vocacao.service';
+import { LocalStorageUtils } from './local.storage.util';
 
 @Component({
   selector: 'app-root',
@@ -115,12 +116,31 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
+    const damageSaved = LocalStorageUtils.ObterDamageInput();
+    if (damageSaved != undefined && damageSaved != null)
+      this.damageInput = damageSaved;
+
+    const protecoesSalvas = LocalStorageUtils.ObterProtecoesAtuais();
+    if (protecoesSalvas != undefined && protecoesSalvas != null) {
+      this.protecaoAtual_Physical = protecoesSalvas.physical;
+      this.protecaoAtual_LifeDrain = protecoesSalvas.lifeDrain;
+      this.protecaoAtual_ManaDrain = protecoesSalvas.manaDrain;
+      this.protecaoAtual_Fire = protecoesSalvas.fire;
+      this.protecaoAtual_Earth = protecoesSalvas.earth;
+      this.protecaoAtual_Energy = protecoesSalvas.energy;
+      this.protecaoAtual_Ice = protecoesSalvas.ice;
+      this.protecaoAtual_Holy = protecoesSalvas.holy;
+      this.protecaoAtual_Death = protecoesSalvas.death;
+    }
   }
 
   calcular(resetarSugestao: boolean = true) {
     if (resetarSugestao) {
       this.sugestaoDeItensAplicada = false;
       this.limparSugestoes();
+
+      LocalStorageUtils.SalvarDamageInput(this.damageInput);
+      LocalStorageUtils.SalvarProtecoesAtuais(this.protecaoAtual_Physical, this.protecaoAtual_LifeDrain, this.protecaoAtual_ManaDrain, this.protecaoAtual_Fire, this.protecaoAtual_Earth, this.protecaoAtual_Energy, this.protecaoAtual_Ice, this.protecaoAtual_Holy, this.protecaoAtual_Death);
     }
 
     const damageArray = this.damageInput.split(/\r?\n/)
@@ -295,7 +315,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     let extrasSlotsSelecionados = this.extrasSlots.filter(p => p.selecionado);
 
     if (this.vocacaoSelecionada)
-      this.salvarItensSelecionados(this.vocacaoSelecionada, this.handSugerido?.id ?? 0, this.itens.filter(p => p.selecionado).map(p => p.id),
+      LocalStorageUtils.SalvarItensSelecionados(this.vocacaoSelecionada, this.handSugerido?.id ?? 0, this.itens.filter(p => p.selecionado).map(p => p.id),
         this.protecaoArvore_Fire, this.protecaoArvore_Energy, this.protecaoArvore_Ice, this.protecaoArvore_Earth);
 
     if (helmetsSelecionados.length == 0) helmetsSelecionados.push(this.itemDefault);
@@ -487,17 +507,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
   obterItensSelecionadosPreviamente(vocacao: VocacaoEnum) {
     try {
-      let json = localStorage.getItem("itens-selecionados");
-      if (!json) return null;
-      var dados: { vocacao: VocacaoEnum, handId: number, itensId: number[], arvFire: number, arvEnergy: number, arvIce: number, arvEarth: number } = JSON.parse(json);
-      if (!dados || !dados?.vocacao || !dados?.itensId || dados?.itensId.length == 0) return;
+      var dados = LocalStorageUtils.ObterItensSelecionadosPreviamente(vocacao);
+      if (dados == undefined || !dados || !dados?.vocacao || !dados?.itensId || dados?.itensId.length == 0) return;
 
       this.itens?.forEach(item => {
-        if (dados.itensId.some(id => id == item.id))
+        if (dados?.itensId.some(id => id == item.id))
           item.selecionado = true;
       });
 
-      if (dados.handId != undefined) this.handSugerido = this.itens.find(p => p.id == dados.handId);
+      if (dados.handId != undefined) this.handSugerido = this.itens.find(p => p.id == dados?.handId ?? 0);
 
       if (dados.arvFire != undefined) this.protecaoArvore_Fire = dados.arvFire;
       if (dados.arvEnergy != undefined) this.protecaoArvore_Energy = dados.arvEnergy;
