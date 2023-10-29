@@ -112,9 +112,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
     const damageSaved = LocalStorageUtils.ObterDamageInput();
     if (damageSaved != undefined && damageSaved != null)
       this.damageInput = damageSaved;
@@ -136,6 +133,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.calcular();
   }
 
+  ngAfterViewInit(): void {
+
+  }
+
   calcular(resetarSugestao: boolean = true) {
     if (resetarSugestao) {
       this.sugestaoDeItensAplicada = false;
@@ -146,7 +147,7 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     const damageArray = this.damageInput.split(/\r?\n/)
-    if (!damageArray) return;
+    if (damageArray?.length <= 1) return;
 
     this.danoAtual_Physical = 0;
     this.danoAtual_Fire = 0;
@@ -423,7 +424,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                             this.legsSugerida = legs;
                             this.bootsSugerida = boots;
                             this.shieldSugerido = shield;
-                            this.armorImbuimentSugerido = imbuiArmor ? [imbuiArmor?.protecao] : [];
+                            this.armorImbuimentSugerido = (imbuiArmor?.protecao ?? false) ? [imbuiArmor?.protecao] : [];
                             this.shieldImbuimentSugerido = (imbuiShield?.protecao ?? false) ? [imbuiShield?.protecao] : [];
                             this.amuletSugerido = amulet;
                             this.ringSugerido = ring;
