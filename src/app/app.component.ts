@@ -367,7 +367,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                     let imbuimentsArmor = this.obterProtecoesDoItemViaImbuiments(armor);
                     if (!imbuimentsArmor || imbuimentsArmor.length == 0) {
                       imbuimentsArmor = [];
-                      imbuimentsArmor.push({ protecao: ProtecaoEnum.Physical, valorProtecao: 0 });
+                      imbuimentsArmor.push([{ protecao: ProtecaoEnum.Physical, valorProtecao: 0 }]);
                     }
 
                     imbuimentsArmor.forEach(imbuiArmor => {
@@ -375,7 +375,7 @@ export class AppComponent implements OnInit, AfterViewInit {
                       let imbuimentsShield = this.obterProtecoesDoItemViaImbuiments(shield);
                       if (!imbuimentsShield || imbuimentsShield.length == 0) {
                         imbuimentsShield = [];
-                        imbuimentsShield.push({ protecao: ProtecaoEnum.Physical, valorProtecao: 0 });
+                        imbuimentsShield.push([{ protecao: ProtecaoEnum.Physical, valorProtecao: 0 }]);
                       }
 
                       imbuimentsShield.forEach(imbuiShield => {
@@ -393,8 +393,8 @@ export class AppComponent implements OnInit, AfterViewInit {
 
                         this.aplicarProtecaoDoItem(protecoesHelmet);
                         this.aplicarProtecaoDoItem(protecoesArmor);
-                        this.aplicarProtecaoDoItem([imbuiArmor]);
-                        this.aplicarProtecaoDoItem([imbuiShield]);
+                        this.aplicarProtecaoDoItem(imbuiArmor);
+                        this.aplicarProtecaoDoItem(imbuiShield);
                         this.aplicarProtecaoDoItem(protecoesLegs);
                         this.aplicarProtecaoDoItem(protecoesBoots);
                         this.aplicarProtecaoDoItem(protecoesShield);
@@ -411,8 +411,8 @@ export class AppComponent implements OnInit, AfterViewInit {
                           this.legsSugerida = legs;
                           this.bootsSugerida = boots;
                           this.shieldSugerido = shield;
-                          this.armorImbuimentSugerido = (imbuiArmor?.protecao ?? false) ? [imbuiArmor?.protecao] : [];
-                          this.shieldImbuimentSugerido = (imbuiShield?.protecao ?? false) ? [imbuiShield?.protecao] : [];
+                          this.armorImbuimentSugerido = (imbuiArmor?.length > 0 ?? false) ? imbuiArmor.filter(p => p.valorProtecao > 0).map(p => p.protecao) : [];
+                          this.shieldImbuimentSugerido = (imbuiShield?.length > 0 ?? false) ? imbuiShield.filter(p => p.valorProtecao > 0).map(p => p.protecao) : [];
                           this.amuletSugerido = amulet;
                           this.ringSugerido = ring;
                           this.extraSlotSugerido = extraSlot;
@@ -424,8 +424,8 @@ export class AppComponent implements OnInit, AfterViewInit {
                             this.legsSugerida = legs;
                             this.bootsSugerida = boots;
                             this.shieldSugerido = shield;
-                            this.armorImbuimentSugerido = (imbuiArmor?.protecao ?? false) ? [imbuiArmor?.protecao] : [];
-                            this.shieldImbuimentSugerido = (imbuiShield?.protecao ?? false) ? [imbuiShield?.protecao] : [];
+                            this.armorImbuimentSugerido = (imbuiArmor?.length > 0 ?? false) ? imbuiArmor.filter(p => p.valorProtecao > 0).map(p => p.protecao) : [];
+                            this.shieldImbuimentSugerido = (imbuiShield?.length > 0 ?? false) ? imbuiShield.filter(p => p.valorProtecao > 0).map(p => p.protecao) : [];
                             this.amuletSugerido = amulet;
                             this.ringSugerido = ring;
                             this.extraSlotSugerido = extraSlot;
@@ -570,28 +570,45 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
     return dic;
   }
-  obterProtecoesDoItemViaImbuiments(item: Item): { protecao: ProtecaoEnum, valorProtecao: number }[] {
+  obterProtecoesDoItemViaImbuiments(item: Item): { protecao: ProtecaoEnum, valorProtecao: number }[][] {
     if (!item || (!item.selecionado ?? false)) return [];
 
-    let dic: { protecao: ProtecaoEnum, valorProtecao: number }[] = [];
+    let dic: { protecao: ProtecaoEnum, valorProtecao: number }[][] = [];
     if (item.imbuimentSlot > 0 && item.imbuiments) {
 
-      item.imbuiments.forEach(imbui => {
+      for (let i = 0; i < item.imbuiments.length; i++) {
 
-        let prot: ProtecaoEnum | undefined = undefined;
-        switch (imbui) {
-          case ImbuimentProtecaoEnum.Fire: prot = ProtecaoEnum.Fire; break;
-          case ImbuimentProtecaoEnum.Earth: prot = ProtecaoEnum.Earth; break;
-          case ImbuimentProtecaoEnum.Energy: prot = ProtecaoEnum.Energy; break;
-          case ImbuimentProtecaoEnum.Ice: prot = ProtecaoEnum.Ice; break;
-          case ImbuimentProtecaoEnum.Holy: prot = ProtecaoEnum.Holy; break;
-          case ImbuimentProtecaoEnum.Death: prot = ProtecaoEnum.Death; break;
+        let prot1: ProtecaoEnum | undefined = undefined;
+        switch (item.imbuiments[i]) {
+          case ImbuimentProtecaoEnum.Fire: prot1 = ProtecaoEnum.Fire; break;
+          case ImbuimentProtecaoEnum.Earth: prot1 = ProtecaoEnum.Earth; break;
+          case ImbuimentProtecaoEnum.Energy: prot1 = ProtecaoEnum.Energy; break;
+          case ImbuimentProtecaoEnum.Ice: prot1 = ProtecaoEnum.Ice; break;
+          case ImbuimentProtecaoEnum.Holy: prot1 = ProtecaoEnum.Holy; break;
+          case ImbuimentProtecaoEnum.Death: prot1 = ProtecaoEnum.Death; break;
         }
 
-        if (prot != undefined) {
-          dic.push({ protecao: prot, valorProtecao: 15 });
+        if (item.imbuimentSlot > 1) {
+
+          for (let j = i + 1; j < item.imbuiments.length; j++) {
+            let prot2: ProtecaoEnum | undefined = undefined;
+            switch (item.imbuiments[j]) {
+              case ImbuimentProtecaoEnum.Fire: prot2 = ProtecaoEnum.Fire; break;
+              case ImbuimentProtecaoEnum.Earth: prot2 = ProtecaoEnum.Earth; break;
+              case ImbuimentProtecaoEnum.Energy: prot2 = ProtecaoEnum.Energy; break;
+              case ImbuimentProtecaoEnum.Ice: prot2 = ProtecaoEnum.Ice; break;
+              case ImbuimentProtecaoEnum.Holy: prot2 = ProtecaoEnum.Holy; break;
+              case ImbuimentProtecaoEnum.Death: prot2 = ProtecaoEnum.Death; break;
+            }
+
+            if (prot2 != undefined) {
+              dic.push([{ protecao: prot1, valorProtecao: 15 }, { protecao: prot2, valorProtecao: 15 }]);
+            }
+          }
+        } else {
+          dic.push([{ protecao: prot1, valorProtecao: 15 }]);
         }
-      })
+      }
     }
     return dic;
   }
