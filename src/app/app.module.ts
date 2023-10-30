@@ -11,12 +11,14 @@ import { registerLocaleData } from '@angular/common';
 
 import localePt from '@angular/common/locales/pt';
 import { ToastrModule } from 'ngx-toastr';
+import { CalculadoraDeDanosComponent } from './calculadora-de-danos/calculadora-de-danos.component';
 
 registerLocaleData(localePt, 'pt');
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CalculadoraDeDanosComponent
   ],
   imports: [
     BrowserModule,
