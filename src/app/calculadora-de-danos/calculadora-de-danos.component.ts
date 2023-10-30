@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ImbuimentProtecaoEnum, Item, ProtecaoEnum, SlotEnum, VocacaoEnum } from '../item.model';
 import { LocalStorageUtils } from '../local.storage.util';
 import { VocacaoItens } from '../vocacao.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-calculadora-de-danos',
@@ -105,8 +106,15 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
     private router: Router,
     private route: ActivatedRoute,
     private changeDetector: ChangeDetectorRef,
-    private toastr: ToastrService) {
+    private toastr: ToastrService,
+    private meta: Meta,
+    private title: Title) {
 
+    this.meta.addTags([
+      { name: 'description', content: 'Este sistema busca te ajudar a encontrar a melhor combinação de itens para aumentar/aprimorar a sua defesa de danos na hunt.' },
+      { name: 'keywords', content: 'Tibia, Calculadora de Danos, Damage Input' },
+    ])
+    this.title.setTitle("Portal Ze Tibinha | Calculadora de Danos");
   }
 
   ngOnInit(): void {
