@@ -739,9 +739,6 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
     this.danoPossivelPercentual_Holy = 0;
     this.danoPossivelPercentual_Death = 0;
     this.limparSugestoes();
-
-    LocalStorageUtils.SalvarDamageInput(this.damageInput);
-    LocalStorageUtils.SalvarProtecoesAtuais(this.protecaoAtual_Physical, this.protecaoAtual_LifeDrain, this.protecaoAtual_ManaDrain, this.protecaoAtual_Fire, this.protecaoAtual_Earth, this.protecaoAtual_Energy, this.protecaoAtual_Ice, this.protecaoAtual_Holy, this.protecaoAtual_Death);
-
+    this.calcular();
   }
 }
