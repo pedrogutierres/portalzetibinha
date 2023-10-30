@@ -10,7 +10,7 @@ export class AppComponent {
 
   constructor(private meta: Meta, private title: Title) {
     this.meta.addTags([
-      { name: 'description', content: 'Encontre a melhor combinação de itens para melhorar a proteção na sua hunt no Tibia, utilizando a calculadora de danos.' },
+      { name: 'description', content: 'Encontre a melhor combinação de itens para melhorar a proteção na sua hunt no Tibia, utilizando a calculadora de danos recebidos.' },
       { name: 'keywords', content: 'Tibia, Calculadora de Danos, Damage Input' },
     ])
     this.title.setTitle("Portal Ze Tibinha");
