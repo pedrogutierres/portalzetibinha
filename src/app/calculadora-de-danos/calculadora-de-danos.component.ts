@@ -669,4 +669,79 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
   imbuimentTextCompleto(imbui: ProtecaoEnum, percentual: number): string {
     return `${this.imbuimentText(imbui)} +${percentual}%`;
   }
+
+  resertar() {
+    this.damageInput = "";
+    this.protecaoAtual_Physical = 0;
+    this.protecaoAtual_LifeDrain = 0;
+    this.protecaoAtual_ManaDrain = 0;
+    this.protecaoAtual_Fire = 0;
+    this.protecaoAtual_Earth = 0;
+    this.protecaoAtual_Energy = 0;
+    this.protecaoAtual_Ice = 0;
+    this.protecaoAtual_Holy = 0;
+    this.protecaoAtual_Death = 0;
+    this.danoAtual_Physical = 0;
+    this.danoAtual_LifeDrain = 0;
+    this.danoAtual_ManaDrain = 0;
+    this.danoAtual_Fire = 0;
+    this.danoAtual_Earth = 0;
+    this.danoAtual_Energy = 0;
+    this.danoAtual_Ice = 0;
+    this.danoAtual_Holy = 0;
+    this.danoAtual_Death = 0;
+    this.danoAtual_Total = 0;
+    this.danoReal_Physical = 0;
+    this.danoReal_LifeDrain = 0;
+    this.danoReal_ManaDrain = 0;
+    this.danoReal_Fire = 0;
+    this.danoReal_Earth = 0;
+    this.danoReal_Energy = 0;
+    this.danoReal_Ice = 0;
+    this.danoReal_Holy = 0;
+    this.danoReal_Death = 0;
+    this.danoReal_Total = 0;
+    this.danoRealPercentual_Physical = 0;
+    this.danoRealPercentual_LifeDrain = 0;
+    this.danoRealPercentual_ManaDrain = 0;
+    this.danoRealPercentual_Fire = 0;
+    this.danoRealPercentual_Earth = 0;
+    this.danoRealPercentual_Energy = 0;
+    this.danoRealPercentual_Ice = 0;
+    this.danoRealPercentual_Holy = 0;
+    this.danoRealPercentual_Death = 0;
+    this.protecaoSugestao_Physical = 0;
+    this.protecaoSugestao_LifeDrain = 0;
+    this.protecaoSugestao_ManaDrain = 0;
+    this.protecaoSugestao_Fire = 0;
+    this.protecaoSugestao_Earth = 0;
+    this.protecaoSugestao_Energy = 0;
+    this.protecaoSugestao_Ice = 0;
+    this.protecaoSugestao_Holy = 0;
+    this.protecaoSugestao_Death = 0;
+    this.danoPossivel_Physical = 0;
+    this.danoPossivel_LifeDrain = 0;
+    this.danoPossivel_ManaDrain = 0;
+    this.danoPossivel_Fire = 0;
+    this.danoPossivel_Earth = 0;
+    this.danoPossivel_Energy = 0;
+    this.danoPossivel_Ice = 0;
+    this.danoPossivel_Holy = 0;
+    this.danoPossivel_Death = 0;
+    this.danoPossivel_Total = 0;
+    this.danoPossivelPercentual_Physical = 0;
+    this.danoPossivelPercentual_LifeDrain = 0;
+    this.danoPossivelPercentual_ManaDrain = 0;
+    this.danoPossivelPercentual_Fire = 0;
+    this.danoPossivelPercentual_Earth = 0;
+    this.danoPossivelPercentual_Energy = 0;
+    this.danoPossivelPercentual_Ice = 0;
+    this.danoPossivelPercentual_Holy = 0;
+    this.danoPossivelPercentual_Death = 0;
+    this.limparSugestoes();
+
+    LocalStorageUtils.SalvarDamageInput(this.damageInput);
+    LocalStorageUtils.SalvarProtecoesAtuais(this.protecaoAtual_Physical, this.protecaoAtual_LifeDrain, this.protecaoAtual_ManaDrain, this.protecaoAtual_Fire, this.protecaoAtual_Earth, this.protecaoAtual_Energy, this.protecaoAtual_Ice, this.protecaoAtual_Holy, this.protecaoAtual_Death);
+
+  }
 }

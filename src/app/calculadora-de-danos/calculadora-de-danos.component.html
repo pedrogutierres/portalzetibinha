@@ -14,7 +14,11 @@
     <!-- Painel de dados -->
     <div class="row">
       <div class="form-group col-12 col-md-6 col-lg-4 mb-4">
-        <label class="control-label" for="damage">Damage input</label>
+        <div class="d-flex justify-content-between">
+          <label class="control-label" for="damage">Damage input</label>
+          <button class="btn btn-sm p-0 px-1 mb-1" style="font-size: .8rem;" (click)="resertar()">Resetar</button>
+        </div>
+        
         <textarea class="form-control h-100" style="font-size: .75rem" id="damage" rows="10" [(ngModel)]="damageInput"
           (ngModelChange)="calcular()"></textarea>
       </div>
