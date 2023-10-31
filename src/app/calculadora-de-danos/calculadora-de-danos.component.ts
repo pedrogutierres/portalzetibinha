@@ -112,9 +112,9 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
 
     this.meta.addTags([
       { name: 'description', content: 'Este sistema busca te ajudar a encontrar a melhor combinação de itens para aumentar/aprimorar a sua defesa de danos na hunt recebidos.' },
-      { name: 'keywords', content: 'Tibia, Calculadora de Danos, Damage Input' },
+      { name: 'keywords', content: 'Tibia, Calculadora de Danos, Danos Recebidos, Damage Input' },
     ])
-    this.title.setTitle("Portal Ze Tibinha | Calculadora de Danos Recebidos");
+    this.title.setTitle("Portal Ze Tibinha | Calculadora de Danos Recebidos - Tibia");
   }
 
   ngOnInit(): void {
