@@ -6,19 +6,22 @@ const keyProtecoesAtuais = 'protecoes-atuais';
 
 export class LocalStorageUtils {
 
-  public static SalvarItensSelecionados(vocacao: VocacaoEnum, handId: number, itensId: number[], arvFire: number, arvEnergy: number, arvIce: number, arvEarth: number) {
+  public static SalvarItensSelecionados(vocacao: VocacaoEnum, handId: number, itensId: number[], arvPhysical: number, arvFire: number, arvEarth: number, arvEnergy: number, arvIce: number, arvHoly: number, arvDeath: number) {
     localStorage.setItem(keyItensSelecionados,
       JSON.stringify({
         vocacao,
         handId,
         itensId,
+        arvPhysical: arvPhysical,
         arvFire: arvFire,
+        arvEarth: arvEarth,
         arvEnergy: arvEnergy,
         arvIce: arvIce,
-        arvEarth: arvEarth,
+        arvHoly: arvHoly,
+        arvDeath: arvDeath,
       }))
   }
-  public static ObterItensSelecionadosPreviamente(vocacao: VocacaoEnum): { vocacao: VocacaoEnum, handId: number, itensId: number[], arvFire: number, arvEnergy: number, arvIce: number, arvEarth: number } | undefined {
+  public static ObterItensSelecionadosPreviamente(vocacao: VocacaoEnum): { vocacao: VocacaoEnum, handId: number, itensId: number[], arvFire: number, arvEnergy: number, arvIce: number, arvEarth: number, arvHoly: number, arvDeath: number, arvPhysical: number } | undefined {
     try {
       let json = localStorage.getItem(keyItensSelecionados);
       if (!json) return undefined;

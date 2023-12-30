@@ -18,7 +18,7 @@
           <label class="control-label" for="damage">Damage input</label>
           <button class="btn btn-sm p-0 px-1 mb-1" style="font-size: .8rem;" (click)="resertar()">Resetar</button>
         </div>
-        
+
         <textarea class="form-control h-100" style="font-size: .75rem" id="damage" rows="10" [(ngModel)]="damageInput"
           (ngModelChange)="calcular()"></textarea>
       </div>
@@ -29,55 +29,55 @@
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Physical</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoAtual_Physical" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Life Drain</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoAtual_LifeDrain" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Mana Drain</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoAtual_ManaDrain" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Fire</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoAtual_Fire" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Earth</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoAtual_Earth" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Energy</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoAtual_Energy" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Ice</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoAtual_Ice" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Holy</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoAtual_Holy" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Death</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoAtual_Death" (ngModelChange)="calcular()">
           </div>
           <br />
@@ -221,55 +221,55 @@
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Physical</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoSugestao_Physical" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Life Drain</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoSugestao_LifeDrain" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Mana Drain</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoSugestao_ManaDrain" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Fire</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoSugestao_Fire" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Earth</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoSugestao_Earth" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Energy</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoSugestao_Energy" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Ice</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoSugestao_Ice" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Holy</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoSugestao_Holy" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Death</label>
             <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: '', precision: 0 }"
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
               [(ngModel)]="protecaoSugestao_Death" (ngModelChange)="calcular()">
           </div>
           <br />
@@ -610,88 +610,28 @@
         <div class="form-group col-12 text-center">
           <label class="control-label fs-6 mb-2 ms-5">Proteção Árvore do Destino (Skill)</label>
 
-          <div class="d-flex flex-row flex-wrap justify-content-center gap-2" style="font-size: .8rem;">
+          <div class="d-flex flex-row flex-wrap justify-content-center gap-2 mb-3" style="font-size: .8rem;">
+
+            <!-- Árvore Proteção Physical -->
+            <div class="d-flex flex-row align-items-center">
+              <span class="icon-protecao physical" style="cursor: pointer;"></span>
+              <div class="d-flex flex-column">
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="control text-center" type="text" currencyMask
+                    [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 1 }"
+                    [(ngModel)]="protecaoArvore_Physical">
+                </div>
+              </div>
+            </div>
 
             <!-- Árvore Proteção Fire -->
             <div class="d-flex flex-row align-items-center">
-              <span class="icon-protecao" style="cursor: pointer; --icon: 0"></span>
-              <div class="d-flex flex-column ms-1">
+              <span class="icon-protecao fire" style="cursor: pointer; --icon: 0"></span>
+              <div class="d-flex flex-column">
                 <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvFire" id="arvFire0"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Fire" [value]="0" checked>
-                  <label class="form-check-label ms-1" for="arvFire0" style="cursor: pointer;">
-                    Nenhum
-                  </label>
-                </div>
-                <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvFire" id="arvFire1"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Fire" value="2">
-                  <label class="form-check-label ms-1" for="arvFire1" style="cursor: pointer;">
-                    Nível 1 (+2%)
-                  </label>
-                </div>
-                <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvFire" id="arvFire2"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Fire" value="4">
-                  <label class="form-check-label ms-1" for="arvFire2" style="cursor: pointer;">
-                    Nível 2 (+4%)
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Árvore Proteção Energy -->
-            <div class="d-flex flex-row align-items-center">
-              <span class="icon-protecao energy" style="cursor: pointer;"></span>
-              <div class="d-flex flex-column ms-1">
-                <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvEnergy" id="arvEnergy0"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Energy" [value]="0" checked>
-                  <label class="form-check-label ms-1" for="arvEnergy0" style="cursor: pointer;">
-                    Nenhum
-                  </label>
-                </div>
-                <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvEnergy" id="arvEnergy1"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Energy" value="2">
-                  <label class="form-check-label ms-1" for="arvEnergy1" style="cursor: pointer;">
-                    Nível 1 (+2%)
-                  </label>
-                </div>
-                <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvEnergy" id="arvEnergy2"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Energy" value="4">
-                  <label class="form-check-label ms-1" for="arvEnergy2" style="cursor: pointer;">
-                    Nível 2 (+4%)
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <!-- Árvore Proteção Ice -->
-            <div class="d-flex flex-row align-items-center">
-              <span class="icon-protecao ice" style="cursor: pointer;"></span>
-              <div class="d-flex flex-column ms-1">
-                <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvIce" id="arvIce0"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Ice" [value]="0" checked>
-                  <label class="form-check-label ms-1" for="arvIce0" style="cursor: pointer;">
-                    Nenhum
-                  </label>
-                </div>
-                <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvIce" id="arvIce1"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Ice" value="2">
-                  <label class="form-check-label ms-1" for="arvIce1" style="cursor: pointer;">
-                    Nível 1 (+2%)
-                  </label>
-                </div>
-                <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvIce" id="arvIce2"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Ice" value="4">
-                  <label class="form-check-label ms-1" for="arvIce2" style="cursor: pointer;">
-                    Nível 2 (+4%)
-                  </label>
+                  <input class="control text-center" type="text" currencyMask
+                    [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 1 }"
+                    [(ngModel)]="protecaoArvore_Fire">
                 </div>
               </div>
             </div>
@@ -699,30 +639,63 @@
             <!-- Árvore Proteção Earth -->
             <div class="d-flex flex-row align-items-center">
               <span class="icon-protecao earth" style="cursor: pointer;"></span>
-              <div class="d-flex flex-column ms-1">
+              <div class="d-flex flex-column">
                 <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvEarth" id="arvEarth0"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Earth" [value]="0" checked>
-                  <label class="form-check-label ms-1" for="arvEarth0" style="cursor: pointer;">
-                    Nenhum
-                  </label>
-                </div>
-                <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvEarth" id="arvEarth1"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Earth" value="2">
-                  <label class="form-check-label ms-1" for="arvEarth1" style="cursor: pointer;">
-                    Nível 1 (+2%)
-                  </label>
-                </div>
-                <div class="form-check text-start mt-2 me-5">
-                  <input class="form-check-input text-right" type="radio" name="arvEarth" id="arvEarth2"
-                    style="cursor: pointer;" [(ngModel)]="protecaoArvore_Earth" value="4">
-                  <label class="form-check-label ms-1" for="arvEarth2" style="cursor: pointer;">
-                    Nível 2 (+4%)
-                  </label>
+                  <input class="control text-center" type="text" currencyMask
+                    [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 1 }"
+                    [(ngModel)]="protecaoArvore_Earth">
                 </div>
               </div>
             </div>
+
+            <!-- Árvore Proteção Energy -->
+            <div class="d-flex flex-row align-items-center">
+              <span class="icon-protecao energy" style="cursor: pointer;"></span>
+              <div class="d-flex flex-column">
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="control text-center" type="text" currencyMask
+                    [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 1 }"
+                    [(ngModel)]="protecaoArvore_Energy">
+                </div>
+              </div>
+            </div>
+
+            <!-- Árvore Proteção Ice -->
+            <div class="d-flex flex-row align-items-center">
+              <span class="icon-protecao ice" style="cursor: pointer;"></span>
+              <div class="d-flex flex-column">
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="control text-center" type="text" currencyMask
+                    [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 1 }"
+                    [(ngModel)]="protecaoArvore_Ice">
+                </div>
+              </div>
+            </div>
+
+            <!-- Árvore Proteção Holy -->
+            <div class="d-flex flex-row align-items-center">
+              <span class="icon-protecao holy" style="cursor: pointer;"></span>
+              <div class="d-flex flex-column">
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="control text-center" type="text" currencyMask
+                    [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 1 }"
+                    [(ngModel)]="protecaoArvore_Holy">
+                </div>
+              </div>
+            </div>
+
+            <!-- Árvore Proteção Death -->
+            <div class="d-flex flex-row align-items-center">
+              <span class="icon-protecao death" style="cursor: pointer;"></span>
+              <div class="d-flex flex-column">
+                <div class="form-check text-start mt-2 me-5">
+                  <input class="control text-center" type="text" currencyMask
+                    [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 1 }"
+                    [(ngModel)]="protecaoArvore_Death">
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
 

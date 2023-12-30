@@ -93,10 +93,13 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
 
   vocacaoSelecionada: VocacaoEnum | undefined;
 
+  protecaoArvore_Physical: number = 0;
   protecaoArvore_Fire: number = 0;
+  protecaoArvore_Earth: number = 0;
   protecaoArvore_Energy: number = 0;
   protecaoArvore_Ice: number = 0;
-  protecaoArvore_Earth: number = 0;
+  protecaoArvore_Holy: number = 0;
+  protecaoArvore_Death: number = 0;
 
   itens: Item[] = [];
   sugestaoDeItensAplicada: boolean = false;
@@ -325,7 +328,7 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
 
     if (this.vocacaoSelecionada)
       LocalStorageUtils.SalvarItensSelecionados(this.vocacaoSelecionada, this.handSugerido?.id ?? 0, this.itens.filter(p => p.selecionado).map(p => p.id),
-        this.protecaoArvore_Fire, this.protecaoArvore_Energy, this.protecaoArvore_Ice, this.protecaoArvore_Earth);
+        this.protecaoArvore_Physical, this.protecaoArvore_Fire, this.protecaoArvore_Earth, this.protecaoArvore_Energy, this.protecaoArvore_Ice, this.protecaoArvore_Holy, this.protecaoArvore_Death);
 
     if (helmetsSelecionados.length == 0) helmetsSelecionados.push(this.itemDefault);
     if (armorsSelecionados.length == 0) armorsSelecionados.push(this.itemDefault);
@@ -473,10 +476,14 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
     if (this.amuletSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.amuletSugerido));
     if (this.ringSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.ringSugerido));
     if (this.extraSlotSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.extraSlotSugerido));
+    if (this.protecaoArvore_Physical) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Physical, valorProtecao: this.protecaoArvore_Physical }])
     if (this.protecaoArvore_Fire) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Fire, valorProtecao: this.protecaoArvore_Fire }])
+    if (this.protecaoArvore_Earth) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Earth, valorProtecao: this.protecaoArvore_Earth }])
     if (this.protecaoArvore_Energy) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Energy, valorProtecao: this.protecaoArvore_Energy }])
     if (this.protecaoArvore_Ice) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Ice, valorProtecao: this.protecaoArvore_Ice }])
-    if (this.protecaoArvore_Earth) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Earth, valorProtecao: this.protecaoArvore_Earth }])
+    if (this.protecaoArvore_Holy) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Holy, valorProtecao: this.protecaoArvore_Holy }])
+    if (this.protecaoArvore_Death) this.aplicarProtecaoDoItem([{ protecao: ProtecaoEnum.Death, valorProtecao: this.protecaoArvore_Death }])
+
     if (this.handSugerido != undefined && (this.handSugerido?.id ?? false)) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.handSugerido));
 
     this.changeDetector.reattach();
@@ -526,10 +533,13 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
 
       if (dados.handId != undefined) this.handSugerido = this.itens.find(p => p.id == dados?.handId ?? 0);
 
+      if (dados.arvPhysical != undefined) this.protecaoArvore_Physical = dados.arvPhysical;
       if (dados.arvFire != undefined) this.protecaoArvore_Fire = dados.arvFire;
+      if (dados.arvEarth != undefined) this.protecaoArvore_Earth = dados.arvEarth;
       if (dados.arvEnergy != undefined) this.protecaoArvore_Energy = dados.arvEnergy;
       if (dados.arvIce != undefined) this.protecaoArvore_Ice = dados.arvIce;
-      if (dados.arvEarth != undefined) this.protecaoArvore_Earth = dados.arvEarth;
+      if (dados.arvHoly != undefined) this.protecaoArvore_Holy = dados.arvHoly;
+      if (dados.arvDeath != undefined) this.protecaoArvore_Death = dados.arvDeath;
 
     } catch (err) {
       console.error("Não foi possível obter os itens selecioandos. Erro: " + err)

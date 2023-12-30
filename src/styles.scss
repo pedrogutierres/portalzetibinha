@@ -63,30 +63,45 @@ input {
 }
 
 .icon-protecao {
-  background-image: url("./assets/icons-wheel.webp");
+  background-image: url("./assets/icons-wheel-new.png");
   width: 32px;
   height: 32px;
   background-repeat: no-repeat;
   background-size: cover;
   display: inline-block;
 
-  &.fire {
+  &.physical {
     --icon: 0;
-    background-position-x: calc(32px*-1);
+    background-position-x: 0;
   }
 
-  &.energy {
+  &.holy {
     --icon: 1;
     background-position-x: calc(1*32px*-1);
   }
 
-  &.ice {
+  &.death {
     --icon: 2;
     background-position-x: calc(2*32px*-1);
   }
 
-  &.earth {
+  &.fire {
     --icon: 3;
     background-position-x: calc(3*32px*-1);
+  }
+
+  &.earth {
+    --icon: 4;
+    background-position-x: calc(4*32px*-1);
+  }
+
+  &.ice {
+    --icon: 5;
+    background-position-x: calc(5*32px*-1);
+  }
+
+  &.energy {
+    --icon: 6;
+    background-position-x: calc(6*32px*-1);
   }
 }
