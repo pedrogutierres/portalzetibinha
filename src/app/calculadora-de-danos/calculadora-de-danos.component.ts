@@ -488,13 +488,13 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
 
     this.changeDetector.reattach();
 
-    this.protecaoSugestao_Physical = Math.round(this.protecaoSugestao_Physical);
-    this.protecaoSugestao_Fire = Math.round(this.protecaoSugestao_Fire);
-    this.protecaoSugestao_Earth = Math.round(this.protecaoSugestao_Earth);
-    this.protecaoSugestao_Energy = Math.round(this.protecaoSugestao_Energy);
-    this.protecaoSugestao_Ice = Math.round(this.protecaoSugestao_Ice);
-    this.protecaoSugestao_Holy = Math.round(this.protecaoSugestao_Holy);
-    this.protecaoSugestao_Death = Math.round(this.protecaoSugestao_Death);
+    this.protecaoSugestao_Physical = this.protecaoSugestao_Physical;
+    this.protecaoSugestao_Fire = this.protecaoSugestao_Fire;
+    this.protecaoSugestao_Earth = this.protecaoSugestao_Earth;
+    this.protecaoSugestao_Energy = this.protecaoSugestao_Energy;
+    this.protecaoSugestao_Ice = this.protecaoSugestao_Ice;
+    this.protecaoSugestao_Holy = this.protecaoSugestao_Holy;
+    this.protecaoSugestao_Death = this.protecaoSugestao_Death;
 
     this.calcular(false);
 
