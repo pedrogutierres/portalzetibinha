@@ -468,11 +468,11 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
 
     if (this.helmetSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.helmetSugerido));
     if (this.armorSugerida != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.armorSugerida));
-    if (this.armorImbuimentSugerido != undefined) this.armorImbuimentSugerido.forEach(imbui => this.aplicarProtecaoDoItem([{ protecao: imbui, valorProtecao: 15 }]))
+    if (this.armorImbuimentSugerido != undefined) this.armorImbuimentSugerido.forEach(imbui => this.aplicarProtecaoDoItem([{ protecao: imbui, valorProtecao: (imbui == ProtecaoEnum.Death ? 10 : 15) }]))
     if (this.legsSugerida != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.legsSugerida));
     if (this.bootsSugerida != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.bootsSugerida));
     if (this.shieldSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.shieldSugerido));
-    if (this.shieldImbuimentSugerido != undefined) this.shieldImbuimentSugerido.forEach(imbui => this.aplicarProtecaoDoItem([{ protecao: imbui, valorProtecao: 15 }]))
+    if (this.shieldImbuimentSugerido != undefined) this.shieldImbuimentSugerido.forEach(imbui => this.aplicarProtecaoDoItem([{ protecao: imbui, valorProtecao: (imbui == ProtecaoEnum.Death ? 10 : 15) }]))
     if (this.amuletSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.amuletSugerido));
     if (this.ringSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.ringSugerido));
     if (this.extraSlotSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.extraSlotSugerido));
