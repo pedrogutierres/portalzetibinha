@@ -618,11 +618,11 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
             }
 
             if (prot2 != undefined) {
-              dic.push([{ protecao: prot1, valorProtecao: 15 }, { protecao: prot2, valorProtecao: 15 }]);
+              dic.push([{ protecao: prot1, valorProtecao: (prot1 == ProtecaoEnum.Death ? 10 : 15) }, { protecao: prot2, valorProtecao: (prot2 == ProtecaoEnum.Death ? 10 : 15) }]);
             }
           }
         } else {
-          dic.push([{ protecao: prot1, valorProtecao: 15 }]);
+          dic.push([{ protecao: prot1, valorProtecao: (prot1 == ProtecaoEnum.Death ? 10 : 15) }]);
         }
       }
     }
