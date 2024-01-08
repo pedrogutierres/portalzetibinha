@@ -27,28 +27,10 @@
         <div class="painel pb-3">
           <label class="control-label" for="damage">Proteção atual</label>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Physical</label>
+            <label class="col-4 control-label text-end">Death</label>
             <input class="col-4 control text-center" type="text" currencyMask
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="protecaoAtual_Physical" (ngModelChange)="calcular()">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Life Drain</label>
-            <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="protecaoAtual_LifeDrain" (ngModelChange)="calcular()">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Mana Drain</label>
-            <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="protecaoAtual_ManaDrain" (ngModelChange)="calcular()">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Fire</label>
-            <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="protecaoAtual_Fire" (ngModelChange)="calcular()">
+              [(ngModel)]="protecaoAtual_Death" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Earth</label>
@@ -63,6 +45,12 @@
               [(ngModel)]="protecaoAtual_Energy" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Fire</label>
+            <input class="col-4 control text-center" type="text" currencyMask
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="protecaoAtual_Fire" (ngModelChange)="calcular()">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Ice</label>
             <input class="col-4 control text-center" type="text" currencyMask
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
@@ -75,10 +63,22 @@
               [(ngModel)]="protecaoAtual_Holy" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Death</label>
+            <label class="col-4 control-label text-end">Life Drain</label>
             <input class="col-4 control text-center" type="text" currencyMask
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="protecaoAtual_Death" (ngModelChange)="calcular()">
+              [(ngModel)]="protecaoAtual_LifeDrain" (ngModelChange)="calcular()">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Mana Drain</label>
+            <input class="col-4 control text-center" type="text" currencyMask
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="protecaoAtual_ManaDrain" (ngModelChange)="calcular()">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Physical</label>
+            <input class="col-4 control text-center" type="text" currencyMask
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="protecaoAtual_Physical" (ngModelChange)="calcular()">
           </div>
           <br />
         </div>
@@ -88,36 +88,12 @@
         <div class="painel pb-3">
           <label class="control-label" for="damage">Dano real (recebido sem proteções)</label>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Physical</label>
+            <label class="col-4 control-label text-end">Death</label>
             <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_Physical">
+              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_Death">
             <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoRealPercentual_Physical">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Life Drain</label>
-            <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_LifeDrain">
-            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoRealPercentual_LifeDrain">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Mana Drain</label>
-            <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_ManaDrain">
-            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoRealPercentual_ManaDrain">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Fire</label>
-            <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_Fire">
-            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoRealPercentual_Fire">
+              [(ngModel)]="danoRealPercentual_Death">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Earth</label>
@@ -136,6 +112,14 @@
               [(ngModel)]="danoRealPercentual_Energy">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Fire</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_Fire">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoRealPercentual_Fire">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Ice</label>
             <input class="col-4 control text-center" type="text" currencyMask disabled
               [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_Ice">
@@ -152,12 +136,28 @@
               [(ngModel)]="danoRealPercentual_Holy">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Death</label>
+            <label class="col-4 control-label text-end">Life Drain</label>
             <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_Death">
+              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_LifeDrain">
             <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoRealPercentual_Death">
+              [(ngModel)]="danoRealPercentual_LifeDrain">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Mana Drain</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_ManaDrain">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoRealPercentual_ManaDrain">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Physical</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoReal_Physical">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoRealPercentual_Physical">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end text-warning fw-bold">Total</label>
@@ -219,28 +219,10 @@
             <small style="font-size: .75rem;"> (modifique os valores)</small>
           </label>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Physical</label>
+            <label class="col-4 control-label text-end">Death</label>
             <input class="col-4 control text-center" type="text" currencyMask
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="protecaoSugestao_Physical" (ngModelChange)="calcular()">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Life Drain</label>
-            <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="protecaoSugestao_LifeDrain" (ngModelChange)="calcular()">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Mana Drain</label>
-            <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="protecaoSugestao_ManaDrain" (ngModelChange)="calcular()">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Fire</label>
-            <input class="col-4 control text-center" type="text" currencyMask
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="protecaoSugestao_Fire" (ngModelChange)="calcular()">
+              [(ngModel)]="protecaoSugestao_Death" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Earth</label>
@@ -255,6 +237,12 @@
               [(ngModel)]="protecaoSugestao_Energy" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Fire</label>
+            <input class="col-4 control text-center" type="text" currencyMask
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="protecaoSugestao_Fire" (ngModelChange)="calcular()">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Ice</label>
             <input class="col-4 control text-center" type="text" currencyMask
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
@@ -267,10 +255,22 @@
               [(ngModel)]="protecaoSugestao_Holy" (ngModelChange)="calcular()">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Death</label>
+            <label class="col-4 control-label text-end">Life Drain</label>
             <input class="col-4 control text-center" type="text" currencyMask
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="protecaoSugestao_Death" (ngModelChange)="calcular()">
+              [(ngModel)]="protecaoSugestao_LifeDrain" (ngModelChange)="calcular()">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Mana Drain</label>
+            <input class="col-4 control text-center" type="text" currencyMask
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="protecaoSugestao_ManaDrain" (ngModelChange)="calcular()">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Physical</label>
+            <input class="col-4 control text-center" type="text" currencyMask
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="protecaoSugestao_Physical" (ngModelChange)="calcular()">
           </div>
           <br />
         </div>
@@ -282,13 +282,58 @@
             <small style="font-size: .75rem;"> (com base na proteção sugestão)</small>
           </label>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Physical</label>
+            <label class="col-4 control-label text-end">Death</label>
             <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Physical">
+              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Death">
             <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoPossivelPercentual_Physical"
-              [ngClass]="{'text-success': danoAtual_Physical > danoPossivel_Physical, 'text-danger': danoAtual_Physical < danoPossivel_Physical}">
+              [(ngModel)]="danoPossivelPercentual_Death"
+              [ngClass]="{'text-success': danoAtual_Death > danoPossivel_Death, 'text-danger': danoAtual_Death < danoPossivel_Death}">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Earth</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Earth">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoPossivelPercentual_Earth"
+              [ngClass]="{'text-success': danoAtual_Earth > danoPossivel_Earth, 'text-danger': danoAtual_Earth < danoPossivel_Earth}">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Energy</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Energy">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoPossivelPercentual_Energy"
+              [ngClass]="{'text-success': danoAtual_Energy > danoPossivel_Energy, 'text-danger': danoAtual_Energy < danoPossivel_Energy}">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Fire</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Fire">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoPossivelPercentual_Fire"
+              [ngClass]="{'text-success': danoAtual_Fire > danoPossivel_Fire, 'text-danger': danoAtual_Fire < danoPossivel_Fire}">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Ice</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Ice">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoPossivelPercentual_Ice"
+              [ngClass]="{'text-success': danoAtual_Ice > danoPossivel_Ice, 'text-danger': danoAtual_Ice < danoPossivel_Ice}">
+          </div>
+          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
+            <label class="col-4 control-label text-end">Holy</label>
+            <input class="col-4 control text-center" type="text" currencyMask disabled
+              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Holy">
+            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
+              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
+              [(ngModel)]="danoPossivelPercentual_Holy"
+              [ngClass]="{'text-success': danoAtual_Holy > danoPossivel_Holy, 'text-danger': danoAtual_Holy < danoPossivel_Holy}">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end">Life Drain</label>
@@ -311,58 +356,13 @@
               [ngClass]="{'text-success': danoAtual_ManaDrain > danoPossivel_ManaDrain, 'text-danger': danoAtual_ManaDrain < danoPossivel_ManaDrain}">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Fire</label>
+            <label class="col-4 control-label text-end">Physical</label>
             <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '',  thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Fire">
+              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Physical">
             <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
               [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoPossivelPercentual_Fire"
-              [ngClass]="{'text-success': danoAtual_Fire > danoPossivel_Fire, 'text-danger': danoAtual_Fire < danoPossivel_Fire}">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Earth</label>
-            <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Earth">
-            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoPossivelPercentual_Earth"
-              [ngClass]="{'text-success': danoAtual_Earth > danoPossivel_Earth, 'text-danger': danoAtual_Earth < danoPossivel_Earth}">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Energy</label>
-            <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Energy">
-            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoPossivelPercentual_Energy"
-              [ngClass]="{'text-success': danoAtual_Energy > danoPossivel_Energy, 'text-danger': danoAtual_Energy < danoPossivel_Energy}">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Ice</label>
-            <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Ice">
-            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoPossivelPercentual_Ice"
-              [ngClass]="{'text-success': danoAtual_Ice > danoPossivel_Ice, 'text-danger': danoAtual_Ice < danoPossivel_Ice}">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Holy</label>
-            <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Holy">
-            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoPossivelPercentual_Holy"
-              [ngClass]="{'text-success': danoAtual_Holy > danoPossivel_Holy, 'text-danger': danoAtual_Holy < danoPossivel_Holy}">
-          </div>
-          <div class="row mt-1 px-2" style="font-size: 0.8rem;">
-            <label class="col-4 control-label text-end">Death</label>
-            <input class="col-4 control text-center" type="text" currencyMask disabled
-              [options]="{ prefix: '', thousands: '.', decimal: '', precision: 0 }" [(ngModel)]="danoPossivel_Death">
-            <input class="col-3 control text-center ms-2" type="text" currencyMask disabled
-              [options]="{ prefix: '', suffix: ' %', thousands: '.', decimal: ',', precision: 2 }"
-              [(ngModel)]="danoPossivelPercentual_Death"
-              [ngClass]="{'text-success': danoAtual_Death > danoPossivel_Death, 'text-danger': danoAtual_Death < danoPossivel_Death}">
+              [(ngModel)]="danoPossivelPercentual_Physical"
+              [ngClass]="{'text-success': danoAtual_Physical > danoPossivel_Physical, 'text-danger': danoAtual_Physical < danoPossivel_Physical}">
           </div>
           <div class="row mt-1 px-2" style="font-size: 0.8rem;">
             <label class="col-4 control-label text-end fw-bold" [ngClass]="{'text-warning': danoAtual_Total == danoPossivel_Total, 
