@@ -166,6 +166,8 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
     this.danoAtual_Ice = 0;
     this.danoAtual_Holy = 0;
     this.danoAtual_Death = 0;
+    this.danoAtual_LifeDrain = 0;
+    this.danoAtual_ManaDrain = 0;
 
     let loop = true;
 
@@ -188,15 +190,22 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
         this.danoAtual_Holy = this.extrairDano(line);
       } else if (line?.trim().startsWith("Death")) {
         this.danoAtual_Death = this.extrairDano(line);
+      } else if (line?.trim().startsWith("Life Drain")) {
+        this.danoAtual_LifeDrain = this.extrairDano(line);
+      } else if (line?.trim().startsWith("Mana Drain")) {
+        this.danoAtual_ManaDrain = this.extrairDano(line);
       } else if (line?.trim().startsWith("Damage Sources")) {
         loop = false;
       }
     });
 
     this.danoAtual_Total = this.danoAtual_Physical + this.danoAtual_Fire + this.danoAtual_Earth
-      + this.danoAtual_Energy + this.danoAtual_Ice + this.danoAtual_Holy + this.danoAtual_Death;
+      + this.danoAtual_Energy + this.danoAtual_Ice + this.danoAtual_Holy + this.danoAtual_Death
+      + this.danoAtual_LifeDrain + this.danoAtual_ManaDrain;
 
     this.danoReal_Physical = (this.danoAtual_Physical * 100) / (100 - this.protecaoAtual_Physical);
+    this.danoReal_LifeDrain = (this.danoAtual_LifeDrain * 100) / (100 - this.protecaoAtual_LifeDrain);
+    this.danoReal_ManaDrain = (this.danoAtual_ManaDrain * 100) / (100 - this.protecaoAtual_ManaDrain);
     this.danoReal_Fire = (this.danoAtual_Fire * 100) / (100 - this.protecaoAtual_Fire);
     this.danoReal_Earth = (this.danoAtual_Earth * 100) / (100 - this.protecaoAtual_Earth);
     this.danoReal_Energy = (this.danoAtual_Energy * 100) / (100 - this.protecaoAtual_Energy);
@@ -205,9 +214,12 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
     this.danoReal_Death = (this.danoAtual_Death * 100) / (100 - this.protecaoAtual_Death);
 
     this.danoReal_Total = this.danoReal_Physical + this.danoReal_Fire + this.danoReal_Earth
-      + this.danoReal_Energy + this.danoReal_Ice + this.danoReal_Holy + this.danoReal_Death;
+      + this.danoReal_Energy + this.danoReal_Ice + this.danoReal_Holy + this.danoReal_Death
+      + this.danoReal_LifeDrain + this.danoReal_ManaDrain;
 
     this.danoRealPercentual_Physical = (this.danoReal_Physical * 100) / this.danoReal_Total;
+    this.danoRealPercentual_LifeDrain = (this.danoReal_LifeDrain * 100) / this.danoReal_Total;
+    this.danoRealPercentual_ManaDrain = (this.danoReal_ManaDrain * 100) / this.danoReal_Total;
     this.danoRealPercentual_Fire = (this.danoReal_Fire * 100) / this.danoReal_Total;
     this.danoRealPercentual_Earth = (this.danoReal_Earth * 100) / this.danoReal_Total;
     this.danoRealPercentual_Energy = (this.danoReal_Energy * 100) / this.danoReal_Total;
@@ -217,6 +229,8 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
 
 
     this.danoPossivel_Physical = (this.danoReal_Physical * (100 - this.protecaoSugestao_Physical)) / 100;
+    this.danoPossivel_LifeDrain = (this.danoReal_LifeDrain * (100 - this.protecaoSugestao_Death)) / 100;
+    this.danoPossivel_ManaDrain = (this.danoReal_ManaDrain * (100 - this.protecaoSugestao_Death)) / 100;
     this.danoPossivel_Fire = (this.danoReal_Fire * (100 - this.protecaoSugestao_Fire)) / 100;
     this.danoPossivel_Earth = (this.danoReal_Earth * (100 - this.protecaoSugestao_Earth)) / 100;
     this.danoPossivel_Energy = (this.danoReal_Energy * (100 - this.protecaoSugestao_Energy)) / 100;
@@ -225,9 +239,12 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
     this.danoPossivel_Death = (this.danoReal_Death * (100 - this.protecaoSugestao_Death)) / 100;
 
     this.danoPossivel_Total = this.danoPossivel_Physical + this.danoPossivel_Fire + this.danoPossivel_Earth
-      + this.danoPossivel_Energy + this.danoPossivel_Ice + this.danoPossivel_Holy + this.danoPossivel_Death;
+      + this.danoPossivel_Energy + this.danoPossivel_Ice + this.danoPossivel_Holy + this.danoPossivel_Death
+      + this.danoPossivel_LifeDrain + this.danoPossivel_ManaDrain;
 
     this.danoPossivelPercentual_Physical = (this.danoPossivel_Physical * 100) / this.danoPossivel_Total;
+    this.danoPossivelPercentual_LifeDrain = (this.danoPossivel_LifeDrain * 100) / this.danoPossivel_Total;
+    this.danoPossivelPercentual_ManaDrain = (this.danoPossivel_ManaDrain * 100) / this.danoPossivel_Total;
     this.danoPossivelPercentual_Fire = (this.danoPossivel_Fire * 100) / this.danoPossivel_Total;
     this.danoPossivelPercentual_Earth = (this.danoPossivel_Earth * 100) / this.danoPossivel_Total;
     this.danoPossivelPercentual_Energy = (this.danoPossivel_Energy * 100) / this.danoPossivel_Total;
