@@ -191,9 +191,9 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
       } else if (line?.trim().startsWith("Death")) {
         this.danoAtual_Death = this.extrairDano(line);
       } else if (line?.trim().startsWith("Life Drain")) {
-        this.danoAtual_LifeDrain = this.extrairDano(line);
+        this.danoAtual_LifeDrain = this.extrairDano(line, 2);
       } else if (line?.trim().startsWith("Mana Drain")) {
-        this.danoAtual_ManaDrain = this.extrairDano(line);
+        this.danoAtual_ManaDrain = this.extrairDano(line, 2);
       } else if (line?.trim().startsWith("Damage Sources")) {
         loop = false;
       }
@@ -255,9 +255,9 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
     this.danoPossivelPercentual_Total = 100 - (this.danoPossivel_Total * 100) / this.danoAtual_Total;
   }
 
-  extrairDano(line: string): number {
+  extrairDano(line: string, indexDano: number = 1): number {
     try {
-      return +(line?.trim().split(" ")[1].replace(/\,/gi, "").replace(/\./gi, "")) ?? 0;
+      return +(line?.trim().split(" ")[indexDano].replace(/\,/gi, "").replace(/\./gi, "")) ?? 0;
     } catch (error) {
       return 0;
     }
