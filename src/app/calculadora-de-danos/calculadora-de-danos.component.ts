@@ -159,6 +159,8 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
     if (damageArray?.length <= 1) return;
 
     this.danoAtual_Physical = 0;
+    this.danoAtual_LifeDrain = 0;
+    this.danoAtual_ManaDrain = 0;
     this.danoAtual_Fire = 0;
     this.danoAtual_Earth = 0;
     this.danoAtual_Holy = 0;
@@ -166,8 +168,6 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
     this.danoAtual_Ice = 0;
     this.danoAtual_Holy = 0;
     this.danoAtual_Death = 0;
-    this.danoAtual_LifeDrain = 0;
-    this.danoAtual_ManaDrain = 0;
 
     let loop = true;
 
@@ -229,8 +229,8 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
 
 
     this.danoPossivel_Physical = (this.danoReal_Physical * (100 - this.protecaoSugestao_Physical)) / 100;
-    this.danoPossivel_LifeDrain = (this.danoReal_LifeDrain * (100 - this.protecaoSugestao_Death)) / 100;
-    this.danoPossivel_ManaDrain = (this.danoReal_ManaDrain * (100 - this.protecaoSugestao_Death)) / 100;
+    this.danoPossivel_LifeDrain = (this.danoReal_LifeDrain * (100 - this.protecaoSugestao_LifeDrain)) / 100;
+    this.danoPossivel_ManaDrain = (this.danoReal_ManaDrain * (100 - this.protecaoSugestao_ManaDrain)) / 100;
     this.danoPossivel_Fire = (this.danoReal_Fire * (100 - this.protecaoSugestao_Fire)) / 100;
     this.danoPossivel_Earth = (this.danoReal_Earth * (100 - this.protecaoSugestao_Earth)) / 100;
     this.danoPossivel_Energy = (this.danoReal_Energy * (100 - this.protecaoSugestao_Energy)) / 100;
@@ -410,6 +410,8 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
                         if (combinacoesPossiveis > maximoDeCombinacoes) return;
 
                         this.protecaoSugestao_Physical = 0;
+                        this.protecaoSugestao_LifeDrain = 0;
+                        this.protecaoSugestao_ManaDrain = 0;
                         this.protecaoSugestao_Fire = 0;
                         this.protecaoSugestao_Earth = 0;
                         this.protecaoSugestao_Energy = 0;
@@ -482,6 +484,8 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
     this.protecaoSugestao_Ice = 0;
     this.protecaoSugestao_Holy = 0;
     this.protecaoSugestao_Death = 0;
+    this.protecaoSugestao_LifeDrain = 0;
+    this.protecaoSugestao_ManaDrain = 0;
 
     if (this.helmetSugerido != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.helmetSugerido));
     if (this.armorSugerida != undefined) this.aplicarProtecaoDoItem(this.obterProtecoesDoItem(this.armorSugerida));
@@ -506,6 +510,8 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
     this.changeDetector.reattach();
 
     this.protecaoSugestao_Physical = this.protecaoSugestao_Physical;
+    this.protecaoSugestao_LifeDrain = this.protecaoSugestao_LifeDrain;
+    this.protecaoSugestao_ManaDrain = this.protecaoSugestao_ManaDrain;
     this.protecaoSugestao_Fire = this.protecaoSugestao_Fire;
     this.protecaoSugestao_Earth = this.protecaoSugestao_Earth;
     this.protecaoSugestao_Energy = this.protecaoSugestao_Energy;
@@ -570,6 +576,8 @@ export class CalculadoraDeDanosComponent implements OnInit, AfterViewInit {
 
       switch (protecao.protecao) {
         case ProtecaoEnum.Physical: this.protecaoSugestao_Physical = this.calcularProtecao(this.protecaoSugestao_Physical, protecao.valorProtecao); break;
+        case ProtecaoEnum.LifeDrain: this.protecaoSugestao_LifeDrain = this.calcularProtecao(this.protecaoSugestao_LifeDrain, protecao.valorProtecao); break;
+        case ProtecaoEnum.ManaDrain: this.protecaoSugestao_ManaDrain = this.calcularProtecao(this.protecaoSugestao_ManaDrain, protecao.valorProtecao); break;
         case ProtecaoEnum.Fire: this.protecaoSugestao_Fire = this.calcularProtecao(this.protecaoSugestao_Fire, protecao.valorProtecao); break;
         case ProtecaoEnum.Earth: this.protecaoSugestao_Earth = this.calcularProtecao(this.protecaoSugestao_Earth, protecao.valorProtecao); break;
         case ProtecaoEnum.Energy: this.protecaoSugestao_Energy = this.calcularProtecao(this.protecaoSugestao_Energy, protecao.valorProtecao); break;
