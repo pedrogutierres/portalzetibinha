@@ -134,7 +134,7 @@ export class VocacaoItens {
 
     // Boots
     itens.push(new Item(id++, "Sanguine Galoshes", "https://www.tibiawiki.com.br/images/5/55/Sanguine_Galoshes.gif", [VocacaoEnum.Druid], SlotEnum.Boots, 0, false, [new Protecao(ProtecaoEnum.Physical, 2), new Protecao(ProtecaoEnum.Fire, 8)], 0));
-    itens.push(new Item(id++, "Sanguine Boots", "https://www.tibiawiki.com.br/images/9/92/Sanguine_Boots.gif", [VocacaoEnum.Sorcerer], SlotEnum.Boots, 0, false, [new Protecao(ProtecaoEnum.Physical, 2), new Protecao(ProtecaoEnum.Fire, 8)], 0));
+    itens.push(new Item(id++, "Sanguine Boots", "https://www.tibiawiki.com.br/images/9/92/Sanguine_Boots.gif", [VocacaoEnum.Sorcerer], SlotEnum.Boots, 0, false, [new Protecao(ProtecaoEnum.Physical, 2), new Protecao(ProtecaoEnum.Ice, 8)], 0));
     itens.push(new Item(id++, "Pair of Soulwalkers", "https://www.tibiawiki.com.br/images/3/33/Pair_of_Soulwalkers.gif", [VocacaoEnum.Knight], SlotEnum.Boots, 0, false, [new Protecao(ProtecaoEnum.Physical, 7), new Protecao(ProtecaoEnum.Fire, 5)], 0));
     itens.push(new Item(id++, "Pair of Soulstalkers", "https://www.tibiawiki.com.br/images/c/cb/Pair_of_Soulstalkers.gif", [VocacaoEnum.Paladin], SlotEnum.Boots, 0, false, [new Protecao(ProtecaoEnum.Physical, 5)], 0));
     itens.push(new Item(id++, "Frostflower Boots", "https://www.tibiawiki.com.br/images/b/b8/Frostflower_Boots.gif", [VocacaoEnum.Knight], SlotEnum.Boots, 0, false, [new Protecao(ProtecaoEnum.Physical, 5), new Protecao(ProtecaoEnum.Ice, 5)], 0));
@@ -217,6 +217,7 @@ export class VocacaoItens {
     itens.push(new Item(id++, "Protection Amulet", "https://www.tibiawiki.com.br/images/3/38/Protection_Amulet.gif", this.allVocations(), SlotEnum.Amulet, 0, false, [new Protecao(ProtecaoEnum.Physical, 6)], 0));
     itens.push(new Item(id++, "Silver Amulet", "https://www.tibiawiki.com.br/images/1/18/Silver_Amulet.gif", this.allVocations(), SlotEnum.Amulet, 0, false, [new Protecao(ProtecaoEnum.Earth, 10)], 0));
     itens.push(new Item(id++, "Strange Talisman", "https://www.tibiawiki.com.br/images/6/66/Strange_Talisman.gif", this.allVocations(), SlotEnum.Amulet, 0, false, [new Protecao(ProtecaoEnum.Energy, 10)], 0));
+    itens.push(new Item(id++, "Elven Amulet", "https://www.tibiawiki.com.br/images/f/f1/Elven_Amulet.gif", this.allVocations(), SlotEnum.Amulet, 0, false, [new Protecao(ProtecaoEnum.Physical, 5), new Protecao(ProtecaoEnum.Fire, 5), new Protecao(ProtecaoEnum.Earth, 5), new Protecao(ProtecaoEnum.Energy, 5), new Protecao(ProtecaoEnum.Ice, 5), new Protecao(ProtecaoEnum.Holy, 5), new Protecao(ProtecaoEnum.Death, 5)], 0));
 
     // Rings
     itens.push(new Item(id++, "Arboreal Ring", "https://www.tibiawiki.com.br/images/3/34/Charged_Arboreal_Ring.gif", [VocacaoEnum.Druid], SlotEnum.Ring, 0, false, [new Protecao(ProtecaoEnum.Fire, 4), new Protecao(ProtecaoEnum.Earth, 4), new Protecao(ProtecaoEnum.Energy, 4), new Protecao(ProtecaoEnum.Ice, 4)], 0));
